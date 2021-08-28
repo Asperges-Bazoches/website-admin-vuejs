@@ -1,60 +1,121 @@
 <template>
   <v-app>
+
     <v-app-bar
-      app
-      color="primary"
-      dark
+    app
+    color="#2fb485"
+    dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <h3>Menu</h3>
 
-      <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <div class="d-flex align-center">
+      <v-img
+      alt="Vuetify Logo"
+      class="shrink mr-2"
+      contain
+      src="/img/logo.svg"
+      transition="scale-transition"
+      width="40"
+      />
+    </div>
+   </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      bottom
+      temporary
+    >
+
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+            Champ-Ramard.fr
+            </v-list-item-title>
+            <v-list-item-subtitle>
+            Page d'administration
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
+
+        <v-list
+          dense
+          nav
+        >
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            :to="item.href"
+            link
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+
+          <v-list-item
+            key="go_to_website"
+            href="https://champ-ramard.fr"
+            link
+          >
+            <v-list-item-icon>
+              <v-img
+              alt="CR Logo"
+              class="shrink mr-2"
+              contain
+              src="/img/logo.svg"
+              transition="scale-transition"
+              width="20"
+              />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Vers le site</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
 
     <v-main>
-      <HelloWorld/>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    //
   },
 
   data: () => ({
-    //
+    drawer: false,
+    group: null,
+    items: [
+      { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
+      { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
+      { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
+    ],
+    right: null,
   }),
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
 };
 </script>
