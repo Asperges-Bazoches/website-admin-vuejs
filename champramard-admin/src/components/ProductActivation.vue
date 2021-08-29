@@ -3,13 +3,13 @@
     class="mx-auto"
     max-width="344"
     outlined
+    :loading="this.loading"
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-4" v-if="this.active">PRODUIT DISPONIBLE</div>
-        <div class="overline mb-4" v-if="!this.active">PRODUIT INDISPONIBLE</div>
+        <div class="overline mb-4">{{this.header}}</div>
         <v-list-item-title class="headline mb-1">{{this.name}}</v-list-item-title>
-        <v-list-item-subtitle v-if="!this.active">Impossible de commander actuellement ce produit sur le site.</v-list-item-subtitle>
+        <v-list-item-subtitle>{{this.msg}}</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
@@ -23,21 +23,62 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text v-if="!this.active">Rendre disponible</v-btn>
-      <v-btn text v-if="this.active">Rendre indisponible</v-btn>
+      <v-btn text to="/settings">{{this.btnMsg}}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+
+  import axios from 'axios';
+
   export default {
     name: 'ProductActivation',
     props: {
+      prodId: String,
       name: String,
       img: String,
-      active: Boolean,
     },
     data: () => ({
+      loading:true,
+      header: 'CHARGEMENT',
+      response: null,
+      btnMsg: 'Paramétrer',
+      msg : 'Erreur : Impossible de lire l\'état actuel',
     }),
+    mounted () {
+      axios
+        .get('https://api.champ-ramard.fr/settings.php')
+        .then(response => (this.response=response.data))
+        .catch(()=>(this.response=null))
+    },
+    watch: {
+      response: function(val){
+
+        var availability=null;
+
+        for(var k in val) {
+          if(val[k]['STR_KEY']===this.prodId){
+            availability = val[k]['STR_VALUE'];
+          }
+        }
+
+        if(availability=="true"){
+          this.btnMsg='Rendre disponible';
+          this.msg='Ce produit est actuellement incommandable depuis le site.';
+          this.header='PRODUIT DISPONIBLE';
+        }else if(availability=="false"){
+          this.btnMsg='Rendre indisponible';
+          this.msg='Ce produit est actuellement commandable depuis le site.';
+          this.header='PRODUIT INDISPONIBLE';
+        }else{
+          this.btnMsg='Paramétrer';
+          this.msg='Impossible de lire le statut actuel';
+          this.header='ERREUR';
+        }
+
+        this.loading = false;
+      }
+    }
   }
 </script>

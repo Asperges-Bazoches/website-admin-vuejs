@@ -9,7 +9,7 @@
     ></v-select>
     <br/>
     <iframe
-      class='iframe-resize' id="cmd_d1" title="Tomorrow's orders"  width= '100%'
+      class='iframe-resize' id="cmd_d1" title="Tomorrow's orders"  width= '100%' height='1024px'
       :src="'https://api.champ-ramard.fr/secure/build_table.php?template='+this.slug">
     </iframe>
   </div>
