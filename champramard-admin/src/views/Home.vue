@@ -1,39 +1,19 @@
 <template>
   <div class="home">
-    <v-row>
-      <v-col cols=4>
-        <ProductActivation
-          name="Asperges blanches"
-          img='img/logo.svg'
-          activate=false
-          />
-      </v-col>
-      <v-col cols=4>
-        <ProductActivation
-          name="Asperges vertes"
-          img='img/logo.svg'
-          activate=true
-          />
-        </v-col>
-        <v-col cols=4>
-          <ProductActivation
-          name="Fraises"
-          img='img/strawberry.svg'
-          activate=true
-          />
-        </v-col>
-      </v-row>
+    <ul>
+      <li>Nombre de commandes à valider</li>
+      <li>Nombre de commandes acceptées</li>
+      <li>Nombre de commandes refusées</li>
+    </ul>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ProductActivation from '@/components/ProductActivation.vue'
 
 export default {
   name: 'Home',
   components: {
-    ProductActivation
   }
 }
 </script>
