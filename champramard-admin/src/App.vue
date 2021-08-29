@@ -21,6 +21,7 @@
       transition="scale-transition"
       width="40"
       />
+      <h2>Champ-Ramard.fr</h2>
     </div>
    </v-app-bar>
 
@@ -66,6 +67,7 @@
           <v-list-item
             key="go_to_website"
             href="https://champ-ramard.fr"
+            target="_blank"
             link
           >
             <v-list-item-icon>
@@ -88,6 +90,7 @@
 
     <v-main>
       <v-container fluid>
+        <br />
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -109,6 +112,7 @@ export default {
       { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
       { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
       { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
+      { title: 'Planning', icon: 'mdi-calendar', href: '/delivry' },
     ],
     right: null,
   }),
