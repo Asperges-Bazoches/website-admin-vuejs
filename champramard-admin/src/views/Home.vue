@@ -24,6 +24,13 @@
       </v-col>
     </v-row>
     <br/>
+
+    <OrdersChart />
+
+
+    <br/><br/>
+
+    <p><b>TODO List</b></p>
     <ul>
       <li>Actualiser les ProductActivation quand le component réapparait</li>
       <li>Nombre de commandes à valider</li>
@@ -36,11 +43,13 @@
 <script>
 // @ is an alias to /src
 import ProductActivation from '@/components/ProductActivation.vue'
+import OrdersChart from '@/components/OrdersChart.vue'
 
 export default {
   name: 'Home',
   components: {
-    ProductActivation
+    ProductActivation,
+    OrdersChart,
   }
 }
 </script>

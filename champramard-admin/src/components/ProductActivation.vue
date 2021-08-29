@@ -64,13 +64,13 @@
         }
 
         if(availability=="true"){
-          this.btnMsg='Rendre disponible';
-          this.msg='Ce produit est actuellement incommandable depuis le site.';
-          this.header='PRODUIT DISPONIBLE';
-        }else if(availability=="false"){
           this.btnMsg='Rendre indisponible';
           this.msg='Ce produit est actuellement commandable depuis le site.';
           this.header='PRODUIT INDISPONIBLE';
+        }else if(availability=="false"){
+          this.btnMsg='Rendre disponible';
+          this.msg='Ce produit est actuellement incommandable depuis le site.';
+          this.header='PRODUIT DISPONIBLE';
         }else{
           this.btnMsg='Paramétrer';
           this.msg='Impossible de lire le statut actuel';
