@@ -112,7 +112,7 @@ export default {
       { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
       { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
       { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
-      { title: 'Planning', icon: 'mdi-calendar', href: '/delivry' },
+      { title: 'Planning', icon: 'mdi-calendar', href: '/delivery' },
     ],
     right: null,
   }),

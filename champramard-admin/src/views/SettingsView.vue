@@ -23,6 +23,10 @@
             />
           </v-col>
         </v-row>
+        <br /><br />
+        <iframe
+          class='iframe-resize' id="cmd_d1" title="Orders" width='100%' height='300px'
+          src="https://api.champ-ramard.fr/secure/set_settings.php"></iframe>
     </div>
   </template>
 
@@ -37,3 +41,7 @@
     }
   }
   </script>
+
+<style>
+  .iframe-resize { border:none }
+</style>
