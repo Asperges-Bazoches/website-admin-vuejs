@@ -66,11 +66,11 @@
         if(availability=="true"){
           this.btnMsg='Rendre indisponible';
           this.msg='Ce produit est actuellement commandable depuis le site.';
-          this.header='PRODUIT INDISPONIBLE';
+          this.header='PRODUIT DISPONIBLE';
         }else if(availability=="false"){
           this.btnMsg='Rendre disponible';
           this.msg='Ce produit est actuellement incommandable depuis le site.';
-          this.header='PRODUIT DISPONIBLE';
+          this.header='PRODUIT INDISPONIBLE';
         }else{
           this.btnMsg='Paramétrer';
           this.msg='Impossible de lire le statut actuel';
