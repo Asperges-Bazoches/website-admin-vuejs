@@ -47,10 +47,18 @@
       msg : 'Erreur : Impossible de lire l\'état actuel',
     }),
     mounted () {
+
+      const user = localStorage.getItem('user');
       axios
-        .get('https://api.champ-ramard.fr/settings.php')
-        .then(response => (this.response=response.data))
-        .catch(()=>(this.response=null))
+      .get('/v2/public/settings.php',
+        {headers: {
+          'Access-Control-Allow-Origin': "*",
+          'Authorization': 'Basic ' + user,
+          'Content-Type': 'application/json',
+         }})
+      .then(response => (this.response=response.data))
+      .catch(()=>(this.response=null))
+
     },
     watch: {
       response: function(val){

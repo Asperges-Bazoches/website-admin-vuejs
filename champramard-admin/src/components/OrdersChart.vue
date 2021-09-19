@@ -91,10 +91,17 @@
     },
 
     mounted () {
+      const user = localStorage.getItem('user');
+
       axios
-        .get('https://' + localStorage.getItem('user') + '@api.champ-ramard.fr/secure/cmd_overview.php')
-        .then(response => (this.chart.data=response.data))
-        .catch((e)=>(console.log(e)))
-    },
+        .get('/v1/secure/cmd_overview.php', {
+          headers: {
+          'Access-Control-Allow-Origin': "*",
+          'Authorization': 'Basic ' + user,
+          'Content-Type': 'application/json',
+        }})
+       .then(response => (this.chart.data=response.data))
+       .catch((e)=>(console.log(e)))
+      },
   }
 </script>

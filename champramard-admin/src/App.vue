@@ -119,6 +119,10 @@
              type="password"
              required
             ></v-text-field>
+            <br/>
+            <v-alert v-if="error" type="error">
+              {{ error }}
+            </v-alert>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -197,12 +201,16 @@ export default {
 
           // check if credential are ok
 
-          let res = userService.login(username, password);
-          this.username = '';
-          this.password = '';
-          this.loading = !res;
-          this.dialog = !res;
-          this.logged = true;
+          userService.login(username, password)
+          .then((res) => {
+            console.log(res);
+            this.username = '';
+            this.password = '';
+            this.loading = false;
+            this.dialog = !res;
+            this.error = res ? '' : "L'authentification a échoué..";
+            this.logged = res;
+          });
       }
   }
 };
