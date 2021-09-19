@@ -10,7 +10,7 @@
     <br/>
     <iframe
       class='iframe-resize' id="cmd_d1" title="Tomorrow's orders"  width= '100%' height='1024px'
-      :src="'https://api.champ-ramard.fr/secure/build_table.php?template='+this.slug">
+      :src="url">
     </iframe>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default {
   data: () => ({
     template : "Toutes les commandes",
     slug : null,
+    url : '',
     lsTemplate : {
       "Toutes les commandes" : "all",
       "Toutes les commandes futures" : "default",
@@ -35,6 +36,7 @@ export default {
   watch: {
     template: function (val) {
       this.slug = this.lsTemplate[val];
+      this.url = 'https://'+ localStorage.getItem('user') +'@api.champ-ramard.fr/v1/secure/build_table.php?template='+this.slug
     },
   }
 }

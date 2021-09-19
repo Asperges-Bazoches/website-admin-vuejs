@@ -22,10 +22,7 @@ function login(username, password) {
       localStorage.setItem('user', user);
       return true;
     })
-    .catch(function (error) {
-      if (error.response) {
-        console.log(error.response);
-      }
+    .catch(function () {
       return false;
     });
 }

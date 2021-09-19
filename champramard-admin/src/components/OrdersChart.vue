@@ -92,7 +92,6 @@
 
     mounted () {
       const user = localStorage.getItem('user');
-
       axios
         .get('/v1/secure/cmd_overview.php', {
           headers: {

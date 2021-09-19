@@ -32,23 +32,38 @@
       temporary
     >
 
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="text-h6">
-            Champ-Ramard.fr
-            </v-list-item-title>
-            <v-list-item-subtitle>
-            Page d'administration
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list dense >
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-h6">
+                Champ-Ramard.fr
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                Page d'administration
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            key="logout"
+            v-if="logged"
+            @click="handleLogout()"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-logout</v-icon></v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Se déconnecter</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
 
         <v-divider></v-divider>
+        <br />
 
         <v-list
           dense
           nav
         >
+
           <v-list-item
             v-for="item in items"
             :key="item.title"
@@ -85,8 +100,8 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </v-navigation-drawer>
 
+      </v-navigation-drawer>
 
     <v-main>
       <v-container v-if="logged" fluid>
@@ -94,6 +109,8 @@
         <router-view></router-view>
       </v-container>
       <v-dialog
+        persistent
+        no-click-animation
         v-model="dialog"
         width="500"
       >
@@ -132,7 +149,7 @@
               color="primary"
               :disabled="loading"
               text
-              @click="handleSubmit()"
+              @click="handleLogin()"
             >
               Se connecter
             </v-btn>
@@ -186,7 +203,7 @@ export default {
     },
   },
   methods: {
-      handleSubmit () {
+      handleLogin () {
 
           this.submitted = true;
           this.loading = true;
@@ -208,9 +225,17 @@ export default {
             this.password = '';
             this.loading = false;
             this.dialog = !res;
-            this.error = res ? '' : "L'authentification a échoué..";
+            this.error = res ? '' : "L'authentification a échoué !";
             this.logged = res;
           });
+      },
+
+      handleLogout() {
+        userService.logout()
+        this.error = '';
+        this.dialog = true;
+        this.logged = false;
+        this.drawer = false;
       }
   }
 };
