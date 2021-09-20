@@ -35,11 +35,22 @@
         label="Sous-titre du site"
       ></v-text-field>
 
-      <v-text-field
-        v-model="mail_target"
-        :rules="emailRules"
-        label="Adresse e-mail pour la réception des mails automatiques"
-      ></v-text-field>
+
+      <v-row>
+        <v-col cols="4">
+          <v-checkbox
+            v-model="allowEmail"
+            label="Activer les mails de notification"
+          ></v-checkbox>
+        </v-col>
+        <v-col cols="8">
+          <v-text-field
+          v-model="mail_target"
+          :rules="emailRules"
+          label="Adresse e-mail pour la réception des mails automatiques"
+          ></v-text-field>
+        </v-col>
+      </v-row>
 
     </div>
   </template>
