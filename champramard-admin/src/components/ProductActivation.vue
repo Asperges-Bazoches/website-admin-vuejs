@@ -23,7 +23,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text to="/settings">{{this.btnMsg}}</v-btn>
+      <v-btn text @click="setAvailability()">{{this.btnMsg}}</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -46,47 +46,77 @@
       btnMsg: 'Paramétrer',
       msg : 'Erreur : Impossible de lire l\'état actuel',
     }),
-    mounted () {
-
-      const user = localStorage.getItem('user');
-      axios
-      .get('/v2/public/settings.php',
-        {headers: {
-          'Access-Control-Allow-Origin': "*",
-          'Authorization': 'Basic ' + user,
-          'Content-Type': 'application/json',
-         }})
-      .then(response => (this.response=response.data))
-      .catch(()=>(this.response=null))
-
-    },
-    watch: {
-      response: function(val){
-
-        var availability=null;
-
-        for(var k in val) {
-          if(val[k]['STR_KEY']===this.prodId){
-            availability = val[k]['STR_VALUE'];
+    methods: {
+      getAvailability: function () {
+        this.loading = true;
+        const user = localStorage.getItem('user');
+        axios
+        .get('/v2/public/settings.php',
+          {headers: {
+            'Access-Control-Allow-Origin': "*",
+            'Authorization': 'Basic ' + user,
+            'Content-Type': 'application/json',
+           }})
+        .then(response => {
+          let val = response.data;
+          var availability=null;
+          for(var k in val) {
+            if(val[k]['STR_KEY']===this.prodId){
+              availability = val[k]['STR_VALUE'];
+            }
           }
-        }
-
-        if(availability=="true"){
-          this.btnMsg='Rendre indisponible';
-          this.msg='Ce produit est actuellement commandable depuis le site.';
-          this.header='PRODUIT DISPONIBLE';
-        }else if(availability=="false"){
-          this.btnMsg='Rendre disponible';
-          this.msg='Ce produit est actuellement incommandable depuis le site.';
-          this.header='PRODUIT INDISPONIBLE';
-        }else{
+          console.log(availability);
+          if(availability=="true"){
+            this.availability = true;
+            this.btnMsg='Rendre indisponible';
+            this.msg='Ce produit est actuellement commandable depuis le site.';
+            this.header='PRODUIT DISPONIBLE';
+          }else if(availability=="false"){
+            this.availability = false;
+            this.btnMsg='Rendre disponible';
+            this.msg='Ce produit est actuellement incommandable depuis le site.';
+            this.header='PRODUIT INDISPONIBLE';
+          }else{
+            this.availability = null;
+            this.btnMsg='Paramétrer';
+            this.msg='Impossible de lire le statut actuel';
+            this.header='ERREUR';
+          }
+          this.loading = false;
+        })
+        .catch(()=> {
+          this.availability = null;
           this.btnMsg='Paramétrer';
           this.msg='Impossible de lire le statut actuel';
           this.header='ERREUR';
-        }
+        })
+      },
 
-        this.loading = false;
-      }
-    }
+      setAvailability: function() {
+        var bodyFormData = new FormData();
+        if(this.availability){
+          bodyFormData.append(this.prodId, 'false');
+        } else {
+          bodyFormData.append(this.prodId, 'true');
+        }
+        const requestOptions = {
+            headers: {
+                       'Access-Control-Allow-Origin': '*',
+                       'Authorization': 'Basic ' + localStorage.getItem('user'),
+                       'Content-Type': 'application/json',
+                     }
+        };
+
+        axios
+        .post('v2/private/settings.php', bodyFormData, requestOptions)
+        .then(() => (this.getAvailability()))
+        .catch(() => (console.log("Error while changing availability")));
+      },
+    },
+
+    mounted () {
+      this.getAvailability();
+    },
+
   }
 </script>
