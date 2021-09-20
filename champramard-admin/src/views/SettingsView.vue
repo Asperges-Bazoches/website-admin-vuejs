@@ -26,12 +26,12 @@
       <br/>
 
       <v-text-field
-        v-model="website_title"
+        v-model="websiteTitle"
         label="Titre du site"
       ></v-text-field>
 
       <v-text-field
-        v-model="website_subtitle"
+        v-model="websiteSubtitle"
         label="Sous-titre du site"
       ></v-text-field>
 
@@ -45,8 +45,7 @@
         </v-col>
         <v-col cols="8">
           <v-text-field
-          v-model="mail_target"
-          :rules="emailRules"
+          v-model="emailTarget"
           label="Adresse e-mail pour la réception des mails automatiques"
           ></v-text-field>
         </v-col>
@@ -63,7 +62,13 @@
     name: 'SettingsView',
     components: {
       ProductActivation
-    }
+    },
+    data:() =>({
+      websiteTitle: '',
+      websiteSubtitle: '',
+      emailTarget: '',
+      allowEmail: true,
+    })
   }
   </script>
 
