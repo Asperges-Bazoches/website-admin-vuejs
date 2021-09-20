@@ -1,21 +1,64 @@
   <template>
-    <div class="home">
-      <iframe
-        class='iframe-resize' id="cmd_d1" title="Orders" width='100%' height='300px'
-        src="https://api.champ-ramard.fr/secure/set_settings.php"></iframe>
+    <div class="settings-panel">
+      <v-row>
+        <v-col cols=4>
+          <ProductActivation
+            prodId="aspb"
+            name="Asperges blanches"
+            img='img/logo.svg'
+            />
+        </v-col>
+        <v-col cols=4>
+          <ProductActivation
+            prodId="aspv"
+            name="Asperges vertes"
+            img='img/logo.svg'
+          />
+        </v-col>
+        <v-col cols=4>
+          <ProductActivation
+            prodId="fraise"
+            name="Fraises"
+            img='img/strawberry.svg'
+          />
+        </v-col>
+      </v-row>
+      <br/>
+
+      <v-text-field
+        v-model="website_title"
+        label="Titre du site"
+      ></v-text-field>
+
+      <v-text-field
+        v-model="website_subtitle"
+        label="Sous-titre du site"
+      ></v-text-field>
+
+      <v-text-field
+        v-model="mail_target"
+        :rules="emailRules"
+        label="Adresse e-mail pour la réception des mails automatiques"
+      ></v-text-field>
+
     </div>
   </template>
 
   <script>
   // @ is an alias to /src
+  import ProductActivation from '@/components/ProductActivation.vue'
 
   export default {
     name: 'SettingsView',
     components: {
+      ProductActivation
     }
   }
   </script>
 
 <style>
-  .iframe-resize { border:none }
+  .settings-panel {
+      margin-left: 5%;
+      margin-right: 5%;
+  }
 </style>

@@ -1,29 +1,5 @@
 <template>
   <div class="home">
-    <v-row>
-      <v-col cols=4>
-        <ProductActivation
-          prodId="aspb"
-          name="Asperges blanches"
-          img='img/logo.svg'
-          />
-      </v-col>
-      <v-col cols=4>
-        <ProductActivation
-          prodId="aspv"
-          name="Asperges vertes"
-          img='img/logo.svg'
-        />
-      </v-col>
-      <v-col cols=4>
-        <ProductActivation
-          prodId="fraise"
-          name="Fraises"
-          img='img/strawberry.svg'
-        />
-      </v-col>
-    </v-row>
-    <br/>
 
     <OrdersChart />
 
@@ -42,13 +18,11 @@
 
 <script>
 // @ is an alias to /src
-import ProductActivation from '@/components/ProductActivation.vue'
 import OrdersChart from '@/components/OrdersChart.vue'
 
 export default {
   name: 'Home',
   components: {
-    ProductActivation,
     OrdersChart,
   }
 }

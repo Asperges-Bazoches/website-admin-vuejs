@@ -1,22 +1,39 @@
 <template>
-  <div class="about">
-    <v-select
-      v-model="template"
-      :items="Object.keys(lsTemplate)"
-      :rules="[v => !!v || 'Item is required']"
-      label="Sélection des commandes"
-      required
-    ></v-select>
+  <div class="orders-panel">
+    <v-row>
+      <v-col cols="10">
+        <v-select
+          v-model="template"
+          :items="Object.keys(lsTemplate)"
+          :rules="[v => !!v || 'Item is required']"
+          label="Sélection des commandes"
+          required
+        ></v-select>
+      </v-col>
+      <v-col cols="2">
+        <v-btn
+          elevation="2"
+          :loading="loading"
+          large
+          @click='updateTable()'
+        >Rafraichir</v-btn>
+      </v-col>
+    </v-row>
     <br/>
-    <iframe
-      class='iframe-resize' id="cmd_d1" title="Tomorrow's orders"  width= '100%' height='1024px'
-      :src="url">
-    </iframe>
+    <v-data-table
+          :loading="loading"
+          loading-text="Chargement..."
+          :headers="headers"
+          :items="orders"
+          :items-per-page="20"
+          class="elevation-1"
+        ></v-data-table>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import axios from 'axios';
 
 export default {
   name: 'CommandesView',
@@ -25,7 +42,36 @@ export default {
   data: () => ({
     template : "Toutes les commandes",
     slug : null,
-    url : '',
+    loading: true,
+    headers : [{text: 'Prénom-Nom',
+                sortable: true,
+                value: 'NAME',
+              }, {
+                text: 'Téléphone',
+                sortable: false,
+                value: 'PHONE',
+              }, {
+                text: 'Adresse e-mail',
+                sortable: false,
+                value: 'EMAIL',
+              }, {
+                text: 'Asperges blanches',
+                sortable: true,
+                value: 'ASPB',
+              }, {
+                text: 'Asperges vertes',
+                sortable: true,
+                value: 'ASPV',
+              }, {
+                text: 'Fraises',
+                sortable: true,
+                value: 'FRAISE',
+              }, {
+                text: 'Etat',
+                sortable: true,
+                value: 'STATUS',
+              }],
+    orders : [],
     lsTemplate : {
       "Toutes les commandes" : "all",
       "Toutes les commandes futures" : "default",
@@ -33,12 +79,45 @@ export default {
       "Commandes de demain" : "tomorrow",
     },
   }),
+  methods: {
+    updateTable(){
+      this.loading = true;
+      const requestOptions = {
+          headers: { 'Content-Type': 'application/json',
+                     "Access-Control-Allow-Origin": "*",
+                     'Authorization': 'Basic ' + localStorage.getItem('user'),
+                   },
+      };
+
+      axios
+        .get('/v2/private/orders.php?template='+this.slug, requestOptions)
+        .then((response) => {
+          this.orders = response.data.data;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.orders = [];
+          this.loading = false;
+        });
+    }
+  },
   watch: {
     template: function (val) {
       this.slug = this.lsTemplate[val];
-      this.url = 'https://'+ localStorage.getItem('user') +'@api.champ-ramard.fr/v1/secure/build_table.php?template='+this.slug
+      this.updateTable();
     },
+  },
+  mounted(){
+    this.updateTable();
   }
 }
 
 </script>
+
+<style>
+.orders-panel {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+</style>
