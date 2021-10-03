@@ -1,5 +1,9 @@
   <template>
     <div class="settings-panel">
+
+      <h2>Changer la disponiblité des produits sur le site</h2>
+      <br/>
+
       <v-row>
         <v-col cols=4>
           <ProductActivation
@@ -29,39 +33,55 @@
       <h2>Plus de paramétrages</h2>
 
       <v-text-field
+        :loading="this.loading"
         v-model="websiteTitle"
+        @change="removeAlert()"
         label="Titre du site"
       ></v-text-field>
 
       <v-text-field
+        :loading="this.loading"
         v-model="websiteSubtitle"
+        @change="removeAlert()"
         label="Sous-titre du site"
       ></v-text-field>
 
       <v-row>
         <v-col cols="4">
           <v-checkbox
+            :loading="this.loading"
             v-model="allowEmail"
+            @change="removeAlert()"
             label="Activer les mails de notification"
           ></v-checkbox>
         </v-col>
         <v-col cols="8">
           <v-text-field
-          v-model="emailTarget"
-          label="Adresse e-mail pour la réception des mails automatiques"
+            :loading="this.loading"
+            v-model="emailTarget"
+            @change="removeAlert()"
+            label="Adresse e-mail pour la réception des mails automatiques"
           ></v-text-field>
         </v-col>
       </v-row>
 
       <br/>
 
-      <v-btn
-        large
-        block
-        color='primary'
-        @click="setSettings()">
-        Mettre à jour
-      </v-btn>
+      <div style='margin-left:35%;margin-right:35%;'>
+        <v-btn
+          large
+          block
+          color='primary'
+          @click="setSettings()">
+          Mettre à jour
+        </v-btn>
+        <br/>
+        <v-alert
+          :type='this.alertStt'
+          v-if='this.alertMsg'
+          dense
+          >{{this.alertMsg}}</v-alert>
+      </div>
 
       <br/><br/><br/><br/>
 
@@ -83,7 +103,9 @@
       emailTarget: '',
       allowEmail: true,
       sateSettings: {},
-      errMsg: '',
+      alertStt: 'info',
+      alertMsg: '',
+      loading: false,
     }),
 
     methods: {
@@ -117,8 +139,10 @@
           }
         })
         .catch(()=> {
-          this.errMsg='Impossible de lire le paramétrage actuel';
+          this.alertStt='error'
+          this.alertMsg='Impossible de lire le paramétrage actuel';
         })
+        .then(()=>(this.loading=false));
       },
 
       setSettings: function() {
@@ -144,9 +168,22 @@
 
         axios
         .post('v2/private/settings.php', bodyFormData, requestOptions)
-        .then(() => (this.getAvailability()))
-        .catch(() => (console.log("Error while changing availability")));
+        .then(() => {
+          this.alertStt='success';
+          this.alertMsg='Paramétrages modifiés !';
+          this.getSettings();
+        })
+        .catch(() => {
+          this.alertStt='error'
+          this.alertMsg='Impossible de changer les paramétrages du site';
+          console.log("Error while changing availability");
+        });
       },
+
+      removeAlert(){
+        this.alertMsg='';
+      },
+
     },
 
     mounted () {
