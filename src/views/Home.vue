@@ -16,7 +16,7 @@
 
     <br/><br/>
 
-    <h2>Evolution journalière des commandes</h2>
+    <h2>Suivi des commandes</h2>
 
     <OrdersChart />
 
