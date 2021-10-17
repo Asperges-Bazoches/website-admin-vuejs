@@ -21,13 +21,17 @@
     </v-row>
     <br/>
     <v-data-table
-          :loading="loading"
-          loading-text="Chargement..."
-          :headers="headers"
-          :items="orders"
-          :items-per-page="20"
-          class="elevation-1"
-        ></v-data-table>
+        :loading="loading"
+        loading-text="Chargement..."
+        :headers="headers"
+        :items="orders"
+        :items-per-page="20"
+        class="elevation-1"
+      >
+      <template slot="no-data">
+          Aucune commande disponible
+      </template>
+    </v-data-table>
   </div>
 </template>
 

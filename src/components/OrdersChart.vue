@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin-left:5%;margin-right:5%;">
+    <div>
       <h3>Volume commandé sur le site par produit et par jour</h3>
 
       <p>Voici l'évolution journalière des commandes acceptées ou en attente. Par défaut, le graphique est zoomé sur les 15 prochains jours.</p>
