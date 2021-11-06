@@ -7,8 +7,8 @@
     dark
     >
 
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    <h3>Menu</h3>
+    <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <h3>Menu</h3>-->
 
     <v-spacer></v-spacer>
 
@@ -29,7 +29,8 @@
       v-model="drawer"
       app
       bottom
-      temporary
+      permanent
+      expand-on-hover
     >
 
         <v-list dense >

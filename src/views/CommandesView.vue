@@ -45,7 +45,7 @@ export default {
   },
   data: () => ({
     template : "Toutes les commandes",
-    slug : null,
+    slug : "all",
     loading: true,
     headers : [{text: 'Prénom-Nom',
                 sortable: true,
