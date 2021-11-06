@@ -66,18 +66,35 @@
         :length="pageCount"
       ></v-pagination>
     </div>
+    <br/><br/>
 
-    {{ selectedOrder }}
+    <Order
+      v-if="selectedOrder.length"
+      :name="selectedOrder[0].NAME"
+      :email="selectedOrder[0].EMAIL"
+      :phone="selectedOrder[0].PHONE"
+      :day="selectedOrder[0].DAY"
+      :hour="selectedOrder[0].HOUR"
+      :aspb="selectedOrder[0].ASPB"
+      :aspv="selectedOrder[0].ASPV"
+      :fraise="selectedOrder[0].FRAISE"
+      :place="selectedOrder[0].PLACE"
+      :status="selectedOrder[0].STATUS"
+      :comments="selectedOrder[0].COMMENTS"
+    />
+    <br/><br/><br/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+import Order from '@/components/Order.vue';
 
 export default {
   name: 'CommandesView',
   components: {
+    Order,
   },
   data: () => ({
     template : "Toutes les commandes",
@@ -94,14 +111,22 @@ export default {
                 text: 'Prénom-Nom',
                 sortable: true,
                 value: 'NAME',
+              //}, {
+              //  text: 'Téléphone',
+              //  sortable: false,
+              //  value: 'PHONE',
+              //}, {
+              //  text: 'Adresse e-mail',
+              //  sortable: false,
+              //  value: 'EMAIL',
               }, {
-                text: 'Téléphone',
-                sortable: false,
-                value: 'PHONE',
+                text: 'Date',
+                sortable: true,
+                value: 'DAY',
               }, {
-                text: 'Adresse e-mail',
-                sortable: false,
-                value: 'EMAIL',
+                text: 'Créneau',
+                sortable: true,
+                value: 'HOUR',
               }, {
                 text: 'Asperges blanches',
                 sortable: true,
