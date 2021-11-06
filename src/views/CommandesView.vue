@@ -1,7 +1,7 @@
 <template>
   <div class="orders-panel">
     <v-row>
-      <v-col cols="10">
+      <v-col cols="5">
         <v-select
           v-model="template"
           :items="Object.keys(lsTemplate)"
@@ -9,6 +9,16 @@
           label="Sélection des commandes"
           required
         ></v-select>
+      </v-col>
+      <v-col cols="5">
+        <v-text-field
+          :value="itemsPerPage"
+          label="Nombre de commandes par page"
+          type="number"
+          min="-1"
+          max="15"
+          @input="itemsPerPage = parseInt($event, 10)"
+        ></v-text-field>
       </v-col>
       <v-col cols="2">
         <v-btn
@@ -21,17 +31,43 @@
     </v-row>
     <br/>
     <v-data-table
-        :loading="loading"
-        loading-text="Chargement..."
-        :headers="headers"
-        :items="orders"
-        :items-per-page="20"
-        class="elevation-1"
-      >
+      v-model="selectedOrder"
+
+      :loading="loading"
+      loading-text="Chargement..."
+      :headers="headers"
+      :items="orders"
+      class="elevation-1"
+
+      item-key="ID"
+      single-select
+      show-select
+
+      hide-default-footer
+      :page.sync="page"
+      :items-per-page="itemsPerPage"
+      @page-count="pageCount = $event"
+    >
       <template slot="no-data">
           Aucune commande disponible
       </template>
+      <template v-slot:item.STATUS="{ item }">
+        <v-chip
+          :color="getColor(item.STATUS)"
+          dark
+        >
+          {{ item.STATUS }}
+        </v-chip>
+      </template>
     </v-data-table>
+    <div class="text-center pt-2">
+      <v-pagination
+        v-model="page"
+        :length="pageCount"
+      ></v-pagination>
+    </div>
+
+    {{ selectedOrder }}
   </div>
 </template>
 
@@ -45,9 +81,17 @@ export default {
   },
   data: () => ({
     template : "Toutes les commandes",
+    selectedOrder : '',
     slug : "all",
     loading: true,
-    headers : [{text: 'Prénom-Nom',
+    page: 1,
+    pageCount: 0,
+    itemsPerPage: 10,
+    headers : [{text: 'Id.',
+                sortable: true,
+                value: 'ID',
+              }, {
+                text: 'Prénom-Nom',
                 sortable: true,
                 value: 'NAME',
               }, {
@@ -103,7 +147,13 @@ export default {
           this.orders = [];
           this.loading = false;
         });
-    }
+    },
+
+    getColor (status) {
+      if (status == "EN ATTENTE") return 'orange'
+      else if (status == "ACCEPTE") return 'green'
+      else return 'red'
+    },
   },
   watch: {
     template: function (val) {
