@@ -154,6 +154,7 @@ export default {
   }),
   methods: {
     updateTable(){
+      this.selectedOrder = [];
       this.loading = true;
       const requestOptions = {
           headers: { 'Content-Type': 'application/json',
