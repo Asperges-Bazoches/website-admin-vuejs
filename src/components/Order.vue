@@ -6,7 +6,9 @@
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-4">{{status}}</div>
+        <div class="overline mb-4">
+          {{status}}
+        </div>
         <v-list-item-title class="headline mb-1">{{name}}</v-list-item-title>
         <v-list-item-subtitle>{{phone}} - {{email}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -71,29 +73,77 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="green" outlined>Accepter</v-btn>
-      <v-btn color="red" outlined>Refuser</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
+        <v-btn color="green" v-on:click="accept" outlined>Accepter</v-btn>
+        <v-btn color="red" v-on:click="refuse" outlined>Refuser</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn
+          v-if="comments && comments.length>0"
+          @click="show = !show"
+        >
+          Commentaire
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+      <v-expand-transition>
+      <div v-show="show"
         v-if="comments && comments.length>0"
-        @click="show = !show"
-      >
-        Commentaire
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-      </v-btn>
-    </v-card-actions>
-    <v-expand-transition>
-    <div v-show="show"
-      v-if="comments && comments.length>0"
-      >
+        >
+        <v-divider></v-divider>
+        <v-card-text>{{comments}}</v-card-text>
+      </div>
+    </v-expand-transition>
+    <v-dialog
+      persistent
+      v-model="dialog"
+      width="700"
+    >
+
+    <v-card
+      :loading='dialog_loading'
+    >
+      <v-card-title class="text-h5 grey lighten-2">
+        Êtes-vous sûr de vouloir {{action}} la commande ?
+      </v-card-title>
+
       <v-divider></v-divider>
-      <v-card-text>{{comments}}</v-card-text>
-    </div>
-  </v-expand-transition>
+
+      <v-card-text v-if='response.length == 0'>
+        <br/>
+        Cette action entraînera l'envoi d'un mail pour avertir le client ou la cliente et modifiera le statut de la commande.
+      </v-card-text>
+
+      <v-card-text v-if='response.length > 0'>
+        <br/>
+        {{response}}
+      </v-card-text>
+
+      <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              text
+              @click="confirm()"
+              >
+              Oui
+            </v-btn>
+            <v-btn
+              color="primary"
+              text
+              @click="dialog = false"
+              >
+            Annuler
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
+
 </template>
 
 <script>
+  import axios from 'axios';
 
   export default {
     name: 'Order',
@@ -110,12 +160,69 @@
       place: String,
       status: String,
       comments: String,
+      secret: String,
     },
     data: () => ({
       show: true,
-      response: null,
+      response: '',
+      action: '',
+      dialog: false,
+      dialog_loading: false,
     }),
-    methods: {},
+    methods: {
+
+      accept: function(){
+        if(!this.dialog){
+          this.action = "accepter";
+          this.dialog = true;
+        }
+      },
+
+      refuse: function(){
+        if(!this.dialog){
+          this.action = "refuser";
+          this.dialog = true;
+        }
+      },
+
+      confirm: function(){
+        this.dialog_loading = true;
+        var bodyFormData = new FormData();
+        if(this.action=="accepter"){
+          bodyFormData.append("action", "accept");
+        } else {
+          bodyFormData.append("action", "reject");
+        }
+        bodyFormData.append('id-cmd', this.id);
+        bodyFormData.append('secret', this.secret);
+
+        const requestOptions = {
+            headers: {
+                       'Access-Control-Allow-Origin': '*',
+                       'Authorization': 'Basic ' + localStorage.getItem('user'),
+                       'Content-Type': 'application/json',
+                     }
+        };
+
+        axios
+        .post('v2/private/action.php', bodyFormData, requestOptions)
+        .then((response) => {
+          this.response = response.data['msg'];
+          this.dialog_loading = false;
+          //this.dialog = false;
+        })
+        .catch(() => {
+          this.response = 'Un problème a eu lieu durant la requête.';
+          this.dialog_loading = false;
+          this.dialog = false;
+        });
+
+      },
+
+
+
+
+    },
 
     mounted () {},
 

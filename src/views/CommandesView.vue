@@ -70,6 +70,7 @@
 
     <Order
       v-if="selectedOrder.length"
+      :id="selectedOrder[0].ID"
       :name="selectedOrder[0].NAME"
       :email="selectedOrder[0].EMAIL"
       :phone="selectedOrder[0].PHONE"
@@ -81,6 +82,7 @@
       :place="selectedOrder[0].PLACE"
       :status="selectedOrder[0].STATUS"
       :comments="selectedOrder[0].COMMENTS"
+      :secret="selectedOrder[0].SECRET"
     />
     <br/><br/><br/>
   </div>
