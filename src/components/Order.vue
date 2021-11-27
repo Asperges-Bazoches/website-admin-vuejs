@@ -87,10 +87,10 @@
           outlined>
           Refuser
         </v-btn>
-        <v-btn
+        <!--<v-btn
           outlined>
           Envoyer un mail
-        </v-btn>
+        </v-btn>-->
         <v-spacer></v-spacer>
         <v-btn
           v-if="comments && comments.length>0"
