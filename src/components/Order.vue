@@ -73,8 +73,24 @@
     </v-card-text>
 
     <v-card-actions>
-        <v-btn color="green" v-on:click="accept" outlined>Accepter</v-btn>
-        <v-btn color="red" v-on:click="refuse" outlined>Refuser</v-btn>
+        <v-btn
+          color="green"
+          v-if='status=="EN ATTENTE"'
+          v-on:click="accept"
+          outlined>
+          Accepter
+        </v-btn>
+        <v-btn
+          color="red"
+          v-if='status=="EN ATTENTE"'
+          v-on:click="refuse"
+          outlined>
+          Refuser
+        </v-btn>
+        <v-btn
+          outlined>
+          Envoyer un mail
+        </v-btn>
         <v-spacer></v-spacer>
         <v-btn
           v-if="comments && comments.length>0"
@@ -124,6 +140,7 @@
             <v-btn
               color="primary"
               text
+              v-if="response.length == 0"
               @click="confirm()"
               >
               Oui
@@ -131,10 +148,19 @@
             <v-btn
               color="primary"
               text
+              v-if="response.length == 0"
               @click="dialog = false"
               >
             Annuler
           </v-btn>
+          <v-btn
+            color="primary"
+            text
+            @click="closeDialog()"
+            v-if="response.length > 0"
+            >
+          Fermer
+        </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -168,11 +194,20 @@
       action: '',
       dialog: false,
       dialog_loading: false,
+      doUpdate: false,
     }),
     methods: {
 
+      closeDialog: function(){
+        this.dialog = false;
+        if(this.doUpdate){
+          this.$parent.updateTable();
+        }
+      },
+
       accept: function(){
         if(!this.dialog){
+          this.response = '';
           this.action = "accepter";
           this.dialog = true;
         }
@@ -180,6 +215,7 @@
 
       refuse: function(){
         if(!this.dialog){
+          this.response = '';
           this.action = "refuser";
           this.dialog = true;
         }
@@ -207,9 +243,18 @@
         axios
         .post('v2/private/action.php', bodyFormData, requestOptions)
         .then((response) => {
-          this.response = response.data['msg'];
-          this.dialog_loading = false;
-          //this.dialog = false;
+          if (response.data['res'] == "ok"){
+            this.response = "C'est noté ! Statut changé, mail envoyé au client.";
+            this.dialog_loading = false;
+            this.doUpdate = true;
+          } else if (response.data['msg']){
+            this.response = response.data['msg'];
+            this.dialog_loading = false;
+          } else {
+            this.response = 'Un problème imprévu a eu lieu';
+            this.dialog_loading = false;
+            this.doUpdate = true;
+          }
         })
         .catch(() => {
           this.response = 'Un problème a eu lieu durant la requête.';

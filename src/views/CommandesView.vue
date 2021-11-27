@@ -42,6 +42,7 @@
       item-key="ID"
       single-select
       show-select
+      @click:row="rowClick"
 
       hide-default-footer
       :page.sync="page"
@@ -56,7 +57,7 @@
           :color="getColor(item.STATUS)"
           dark
         >
-          {{ item.STATUS }}
+          {{ item.STATUS.toUpperCase() }}
         </v-chip>
       </template>
     </v-data-table>
@@ -80,7 +81,7 @@
       :aspv="selectedOrder[0].ASPV"
       :fraise="selectedOrder[0].FRAISE"
       :place="selectedOrder[0].PLACE"
-      :status="selectedOrder[0].STATUS"
+      :status="selectedOrder[0].STATUS.toUpperCase()"
       :comments="selectedOrder[0].COMMENTS"
       :secret="selectedOrder[0].SECRET"
     />
@@ -179,9 +180,20 @@ export default {
 
     getColor (status) {
       if (status == "EN ATTENTE") return 'orange'
-      else if (status == "ACCEPTE") return 'green'
+      else if (status == "ACCEPTE" | status == "ACCEPTÉE" | status == "ACCEPTéE") return 'green'
       else return 'red'
     },
+
+    rowClick(item, row) {
+      if (this.display_floating && (this.selected_object.index === item.index)) {
+        this.selectedOrder = item;
+        row.select(false);
+      } else {
+        this.selectedOrder = item;
+        row.select(true);
+      }
+    },
+
   },
   watch: {
     template: function (val) {
