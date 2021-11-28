@@ -10,7 +10,7 @@
           required
         ></v-select>
       </v-col>
-      <v-col cols="5">
+      <v-col cols="3">
         <v-text-field
           :value="itemsPerPage"
           label="Nombre de commandes par page"
@@ -23,8 +23,17 @@
       <v-col cols="2">
         <v-btn
           elevation="2"
+          large
+          block
+          @click='printTable()'
+        >Imprimer</v-btn>
+      </v-col>
+      <v-col cols="2">
+        <v-btn
+          elevation="2"
           :loading="loading"
           large
+          block
           @click='updateTable()'
         >Rafraichir</v-btn>
       </v-col>
@@ -178,9 +187,28 @@ export default {
         });
     },
 
+    printTable(){
+      const requestOptions = {
+          headers: { 'Content-Type': 'application/json',
+                     "Access-Control-Allow-Origin": "*",
+                     'Authorization': 'Basic ' + localStorage.getItem('user'),
+                   },
+      };
+
+      axios
+        .get('/v2/private/print.php?template='+this.slug, requestOptions)
+        .then((response) => {
+          var wnd = window.open("about:blank", "", "_blank");
+          wnd.document.write(response.data);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
+
     getColor (status) {
       if (status == "EN ATTENTE") return 'orange'
-      else if (status == "ACCEPTE" | status == "ACCEPTÉE" | status == "ACCEPTéE") return 'green'
+      else if (status == "ACCEPTE" | status == "ACCEPTEE" |status == "ACCEPTÉE" | status == "ACCEPTéE") return 'green'
       else return 'red'
     },
 
