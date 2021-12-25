@@ -2,7 +2,6 @@
   <div class="orders-panel">
     <CmdByStatus short/>
     <v-row>
-      <v-col cols="8">
           <v-btn-toggle
           v-model="template"
           tile
@@ -32,16 +31,6 @@
           label="Sélection des commandes"
           required
         ></v-select>-->
-      </v-col>
-      <v-col cols="4">
-        <v-btn
-          elevation="2"
-          :loading="loading"
-          large
-          block
-          @click='updateTable()'
-        >Rafraichir</v-btn>
-      </v-col>
     </v-row>
     <br/>
     <v-data-table
@@ -55,7 +44,6 @@
 
       item-key="ID"
       single-select
-      show-select
       @click:row="rowClick"
 
       hide-default-footer
@@ -65,6 +53,12 @@
     >
       <template slot="no-data">
           Aucune commande disponible
+      </template>
+      <template v-slot:item.ID="{ item }">
+        <b v-if="selectedOrder.length && (selectedOrder[0].ID == item.ID)">
+          {{ item.ID }}
+        </b>
+        <span v-else>{{ item.ID }}</span>
       </template>
       <template v-slot:item.STATUS="{ item }">
         <v-chip
@@ -80,25 +74,66 @@
         v-model="page"
         :length="pageCount"
       ></v-pagination>
+    </div>
+    <br />
+
+    <div v-if="selectedOrder==''">
+      <h2>
+        Aide
+      </h2>
+      <p>
+        Cliquez sur une ligne du tableau pour gérer la commande. <br/><br/>
+
+        Une interface, comme celle ci-dessous, va alors apparaître en bas du tableau.
+        Vous y retrouverez l'ensemble des détails sur la commande (exemple: coordonnées, commentaire).
+        Utilisez les boutons pour accepter, refuser et envoyer un mail. <br/><br/>
+
+        <Order
+          id=""
+          name="Aucune sélection"
+          email=""
+          phone="Utiliser le tableau pour sélectionner une commande"
+          day="..."
+          hour="..."
+          aspb="?"
+          aspv="?"
+          fraise="?"
+          place="..."
+        />
+
+
+      </p><br/>
+      <h2>
+        Outils  liés au tableaux
+      </h2>
       <v-row>
-        <v-col cols="8">
-          <v-text-field
+          <v-col cols="6">
+            <v-text-field
             :value="itemsPerPage"
             label="Nombre de commandes par page"
             type="number"
             min="-1"
             max="15"
             @input="itemsPerPage = parseInt($event, 10)"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="4">
-          <v-btn
+            ></v-text-field>
+          </v-col>
+          <v-col cols="3">
+            <v-btn
+            elevation="2"
+            :loading="loading"
+            large
+            block
+            @click='updateTable()'
+            >Rafraichir</v-btn>
+          </v-col>
+          <v-col cols="3">
+            <v-btn
             elevation="2"
             large
             block
             color="primary"
             @click='printTable()'
-          >
+            >
             <v-icon left>
               mdi-printer
             </v-icon>
@@ -107,24 +142,28 @@
         </v-col>
       </v-row>
     </div>
+
     <br/><br/>
 
-    <Order
-      v-if="selectedOrder.length"
-      :id="selectedOrder[0].ID"
-      :name="selectedOrder[0].NAME"
-      :email="selectedOrder[0].EMAIL"
-      :phone="selectedOrder[0].PHONE"
-      :day="selectedOrder[0].DAY"
-      :hour="selectedOrder[0].HOUR"
-      :aspb="selectedOrder[0].ASPB"
-      :aspv="selectedOrder[0].ASPV"
-      :fraise="selectedOrder[0].FRAISE"
-      :place="selectedOrder[0].PLACE"
-      :status="selectedOrder[0].STATUS.toUpperCase()"
-      :comments="selectedOrder[0].COMMENTS"
-      :secret="selectedOrder[0].SECRET"
-    />
+    <div v-if="selectedOrder.length">
+
+      <Order
+        :id="selectedOrder[0].ID"
+        :name="selectedOrder[0].NAME"
+        :email="selectedOrder[0].EMAIL"
+        :phone="selectedOrder[0].PHONE"
+        :day="selectedOrder[0].DAY"
+        :hour="selectedOrder[0].HOUR"
+        :aspb="selectedOrder[0].ASPB"
+        :aspv="selectedOrder[0].ASPV"
+        :fraise="selectedOrder[0].FRAISE"
+        :place="selectedOrder[0].PLACE"
+        :status="selectedOrder[0].STATUS.toUpperCase()"
+        :comments="selectedOrder[0].COMMENTS"
+        :secret="selectedOrder[0].SECRET"
+      />
+    </div>
+
     <br/><br/><br/>
   </div>
 </template>
@@ -149,7 +188,7 @@ export default {
     loading: true,
     page: 1,
     pageCount: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 5,
     headers : [{text: 'Id.',
                 sortable: true,
                 value: 'ID',
@@ -247,12 +286,16 @@ export default {
     },
 
     rowClick(item, row) {
-      if (this.display_floating && (this.selected_object.index === item.index)) {
-        this.selectedOrder = item;
+      if (this.selectedOrder.length && this.selectedOrder[0].ID === item.ID) {
+        this.selectedOrder = '';
         row.select(false);
       } else {
         this.selectedOrder = item;
         row.select(true);
+        window.scroll({
+          top: document.body.scrollHeight,
+          behavior: "smooth"
+        });
       }
     },
 

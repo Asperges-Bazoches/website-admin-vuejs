@@ -10,7 +10,10 @@
           {{status}}
         </div>
         <v-list-item-title class="headline mb-1">{{name}}</v-list-item-title>
-        <v-list-item-subtitle>{{phone}} - {{email}}</v-list-item-subtitle>
+        <v-list-item-subtitle>
+          {{phone}}
+          {{email ? '-': ''}}
+          {{email}}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
@@ -88,6 +91,7 @@
           Refuser
         </v-btn>
         <v-btn
+          v-if='email.length>0'
           :href="'mailto:'+email"
           outlined>
           Envoyer un mail
