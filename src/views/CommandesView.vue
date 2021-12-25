@@ -83,12 +83,12 @@
     <v-row>
         <v-col cols="6">
           <v-text-field
-          :value="itemsPerPage"
-          label="Nombre de commandes par page"
-          type="number"
-          min="-1"
-          max="15"
-          @input="itemsPerPage = parseInt($event, 10)"
+            :value="itemsPerPage"
+            label="Nombre de commandes par page"
+            type="number"
+            min="-1"
+            max="15"
+            @input="$event ? itemsPerPage = parseInt($event, 10): itemsPerPage = 0"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
