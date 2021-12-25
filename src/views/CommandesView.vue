@@ -77,9 +77,48 @@
     </div>
     <br />
 
+    <h2>
+      Outils du tableau de commandes
+    </h2>
+    <v-row>
+        <v-col cols="6">
+          <v-text-field
+          :value="itemsPerPage"
+          label="Nombre de commandes par page"
+          type="number"
+          min="-1"
+          max="15"
+          @input="itemsPerPage = parseInt($event, 10)"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-btn
+          elevation="2"
+          :loading="loading"
+          large
+          block
+          @click='updateTable()'
+          >Rafraichir</v-btn>
+        </v-col>
+        <v-col cols="3">
+          <v-btn
+          elevation="2"
+          large
+          block
+          color="primary"
+          @click='printTable()'
+          >
+          <v-icon left>
+            mdi-printer
+          </v-icon>
+          Imprimer l'ensemble du tableau
+        </v-btn>
+      </v-col>
+    </v-row>
+
     <div v-if="selectedOrder==''">
       <h2>
-        Aide
+        Guide d'utilisation
       </h2>
       <p>
         Cliquez sur une ligne du tableau pour gérer la commande. <br/><br/>
@@ -103,44 +142,7 @@
 
 
       </p><br/>
-      <h2>
-        Outils  liés au tableaux
-      </h2>
-      <v-row>
-          <v-col cols="6">
-            <v-text-field
-            :value="itemsPerPage"
-            label="Nombre de commandes par page"
-            type="number"
-            min="-1"
-            max="15"
-            @input="itemsPerPage = parseInt($event, 10)"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="3">
-            <v-btn
-            elevation="2"
-            :loading="loading"
-            large
-            block
-            @click='updateTable()'
-            >Rafraichir</v-btn>
-          </v-col>
-          <v-col cols="3">
-            <v-btn
-            elevation="2"
-            large
-            block
-            color="primary"
-            @click='printTable()'
-            >
-            <v-icon left>
-              mdi-printer
-            </v-icon>
-            Imprimer l'ensemble du tableau
-          </v-btn>
-        </v-col>
-      </v-row>
+
     </div>
 
     <br/><br/>

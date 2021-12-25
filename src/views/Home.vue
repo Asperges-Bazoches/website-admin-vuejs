@@ -6,8 +6,8 @@
 
     <p><b>Ici, vous pouvez...</b></p>
     <ul>
-      <li>Valider, invalider des commandes;</li>
-      <li>Paramétrer le site (titre, sous-titre, disponibilité des produits);</li>
+      <li><a href="/orders">Administrer</a> les commandes futures;</li>
+      <li><a href="/settings">Paramétrer</a> le site (titre, sous-titre, disponibilité des produits);</li>
       <li>Suivre l'évolution des commandes via des graphiques;</li>
       <li class="soon"><v-chip>BIENTÔT</v-chip> Retrouver la liste des clients.</li>
     </ul>
