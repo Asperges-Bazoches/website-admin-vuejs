@@ -1,34 +1,38 @@
 <template>
   <div class="orders-panel">
     <v-row>
-      <v-col cols="5">
-        <v-select
+      <v-col cols="8">
+          <v-btn-toggle
+          v-model="template"
+          tile
+          color="deep-purple accent-3"
+          group
+        >
+          <v-btn value="Toutes les commandes">
+            Toutes les commandes
+          </v-btn>
+
+          <v-btn value="Toutes les commandes futures">
+            Futures
+          </v-btn>
+
+          <v-btn value="Commandes du jour">
+            Aujourd'hui
+          </v-btn>
+
+          <v-btn value="Commandes de demain">
+            Demain
+          </v-btn>
+        </v-btn-toggle>
+        <!--<v-select
           v-model="template"
           :items="Object.keys(lsTemplate)"
           :rules="[v => !!v || 'Item is required']"
           label="Sélection des commandes"
           required
-        ></v-select>
+        ></v-select>-->
       </v-col>
-      <v-col cols="3">
-        <v-text-field
-          :value="itemsPerPage"
-          label="Nombre de commandes par page"
-          type="number"
-          min="-1"
-          max="15"
-          @input="itemsPerPage = parseInt($event, 10)"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="2">
-        <v-btn
-          elevation="2"
-          large
-          block
-          @click='printTable()'
-        >Imprimer</v-btn>
-      </v-col>
-      <v-col cols="2">
+      <v-col cols="4">
         <v-btn
           elevation="2"
           :loading="loading"
@@ -75,6 +79,26 @@
         v-model="page"
         :length="pageCount"
       ></v-pagination>
+      <v-row>
+        <v-col cols="8">
+          <v-text-field
+            :value="itemsPerPage"
+            label="Nombre de commandes par page"
+            type="number"
+            min="-1"
+            max="15"
+            @input="itemsPerPage = parseInt($event, 10)"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="4">
+          <v-btn
+            elevation="2"
+            large
+            block
+            @click='printTable()'
+          >Imprimer l'ensemble du tableau</v-btn>
+        </v-col>
+      </v-row>
     </div>
     <br/><br/>
 
