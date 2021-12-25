@@ -3,9 +3,30 @@
     <div v-if="display">
       <h3>Volume commandé sur le site par produit et par jour</h3>
 
-      <p>Voici l'évolution journalière des commandes acceptées ou en attente. Par défaut, le graphique est zoomé sur les 15 prochains jours.</p>
+      <v-btn-toggle
+        v-model="subset"
+        tile
+        color="deep-purple accent-3"
+        group
+        @change="updateChartData()"
+      >
+        <v-btn value="all">
+          Toutes les commandes
+        </v-btn>
+        <v-btn value="accepted">
+          Commandes acceptées
+        </v-btn>
+        <v-btn value="not_refused">
+          Commandes non refusées
+        </v-btn>
+      </v-btn-toggle>
+
       <div class="content" style="display:block">
-        <div class="chart" ref="daily_orders" style='width:100%; height:450px; font-size:10pt;'></div>
+        <div
+          class="chart"
+          ref="daily_orders"
+          style='width:100%; height:450px; font-size:10pt;'>
+        </div>
       </div>
       <br/>
       <ul>
@@ -33,6 +54,7 @@
     },
     data: () => ({
       chart: '',
+      subset: 'not_refused',
       display: true,
     }),
 
@@ -96,35 +118,50 @@
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.maxTooltipDistance = 0;
 
-        return (chart);
+        chart.data = [];
 
-        //const xmin = new Date()
-        //xmin.setDate(xmin.getDate() - 1)
-        //const xmax = new Date(xmin)
-        //xmax.setDate(xmax.getDate() + 15)
-        //chart.events.on("ready", function () {dateAxis.zoomToDates(xmin,xmax);});
+         //const xmin = new Date()
+         //xmin.setDate(xmin.getDate() - 1)
+         //const xmax = new Date(xmin)
+         //xmax.setDate(xmax.getDate() + 15)
+         //chart.events.on("ready", function () {dateAxis.zoomToDates(xmin,xmax);});
+
+         return (chart);
       },
+
+     updateChartData() {
+        const user = localStorage.getItem('user');
+        console.log('Updating chart data..');
+        axios
+          .get('/v2/private/stats/by_day.php', {
+            headers: {
+            'Access-Control-Allow-Origin': "*",
+            'Authorization': 'Basic ' + user,
+            'Content-Type': 'application/json',
+          }})
+         .then(response => {
+           console.log('Request done..');
+           this.display = true;
+           this.chart.addData(
+             response.data[this.subset],
+             this.chart.data.length
+           );
+           console.log('Data ' + this.subset + ' passed to chart..');
+         })
+         .catch((e)=>{
+           console.log(e);
+           this.display = true;
+           this.chart.addData(
+             [],
+             this.chart.data.length
+           );
+         })
+      }
     },
 
     mounted () {
       this.chart = this.createChart();
-      const user = localStorage.getItem('user');
-      axios
-        .get('/v1/secure/cmd_overview.php', {
-          headers: {
-          'Access-Control-Allow-Origin': "*",
-          'Authorization': 'Basic ' + user,
-          'Content-Type': 'application/json',
-        }})
-       .then(response => {
-         this.display = true;
-         this.chart.data = response.data;
-       })
-       .catch((e)=>{
-         console.log(e);
-         this.display = true;
-         this.chart.data = [];
-       })
-      },
+      this.updateChartData();
+    }
   }
 </script>
