@@ -19,35 +19,7 @@
     <h2>Suivi des commandes</h2>
 
     <h3>Les commandes en quelques chiffres...</h3>
-    <v-row>
-      <v-col cols=4>
-        <v-alert
-          dense
-          prominent
-          text
-          color="green"
-          type="success"
-          >{{accepted}} commande(s) future(s) acceptée(s)</v-alert>
-      </v-col>
-      <v-col cols=4>
-        <v-alert
-          dense
-          prominent
-          text
-          color="red"
-          type="success"
-        >{{refused}} commande(s) future(s) refusée(s)</v-alert>
-      </v-col>
-      <v-col cols=4>
-        <v-alert
-          dense
-          outlined
-          prominent
-          color="red"
-          type="error"
-        >{{pending}} commande(s) future(s) à traiter</v-alert>
-      </v-col>
-  </v-row>
+    <CmdByStatus/>
 
 
   <br/>
@@ -60,11 +32,13 @@
 <script>
 // @ is an alias to /src
 import OrdersChart from '@/components/OrdersChart.vue'
+import CmdByStatus from '@/components/CmdByStatus.vue'
 
 export default {
   name: 'Home',
   components: {
     OrdersChart,
+    CmdByStatus,
   },
   data: () => ({
     accepted: 0,

@@ -1,5 +1,6 @@
 <template>
   <div class="orders-panel">
+    <CmdByStatus short/>
     <v-row>
       <v-col cols="8">
           <v-btn-toggle
@@ -95,8 +96,14 @@
             elevation="2"
             large
             block
+            color="primary"
             @click='printTable()'
-          >Imprimer l'ensemble du tableau</v-btn>
+          >
+            <v-icon left>
+              mdi-printer
+            </v-icon>
+            Imprimer l'ensemble du tableau
+          </v-btn>
         </v-col>
       </v-row>
     </div>
@@ -126,11 +133,14 @@
 // @ is an alias to /src
 import axios from 'axios';
 import Order from '@/components/Order.vue';
+import CmdByStatus from '@/components/CmdByStatus.vue';
+import { isAccepted } from '@/_services/parsers.js';
 
 export default {
   name: 'CommandesView',
   components: {
     Order,
+    CmdByStatus,
   },
   data: () => ({
     template : "Toutes les commandes",
@@ -232,7 +242,7 @@ export default {
 
     getColor (status) {
       if (status == "EN ATTENTE") return 'orange'
-      else if (status == "ACCEPTE" | status == "ACCEPTEE" |status == "ACCEPTÉE" | status == "ACCEPTéE") return 'green'
+      else if (isAccepted(status)) return 'green'
       else return 'red'
     },
 
