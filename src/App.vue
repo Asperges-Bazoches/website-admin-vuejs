@@ -79,6 +79,19 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item
+            key="go_to_timetable"
+            href="https://champ-ramard.fr/timetable.html"
+            target="_blank"
+            link
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-calendar</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Vers le planning</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
           <v-list-item
             key="go_to_website"
@@ -89,11 +102,10 @@
             <v-list-item-icon>
               <v-img
               alt="CR Logo"
-              class="shrink mr-2"
               contain
               src="/img/logo.svg"
               transition="scale-transition"
-              width="20"
+              width="15"
               />
             </v-list-item-icon>
             <v-list-item-content>
@@ -185,7 +197,6 @@ export default {
       { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
       { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
       { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
-      { title: 'Planning', icon: 'mdi-calendar', href: '/delivery' },
     ],
     right: null,
   }),

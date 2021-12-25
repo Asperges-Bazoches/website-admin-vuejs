@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import CommandesView from '../views/CommandesView.vue'
 import SettingsView from '../views/SettingsView.vue'
-import TimetableView from '../views/TimetableView.vue'
 
 Vue.use(VueRouter)
 
@@ -50,24 +49,6 @@ const routes = [
     component: SettingsView,
     meta: {
       title: 'Paramètres - Champ-Ramard',
-      metaTags: [
-        {
-          name: 'description',
-          content: 'The home page of our example app.'
-        },
-        {
-          property: 'og:description',
-          content: 'The home page of our example app.'
-        }
-      ]
-    }
-  },
-  {
-    path: '/delivery',
-    name: 'Planning',
-    component: TimetableView,
-    meta: {
-      title: 'Planning - Champ-Ramard',
       metaTags: [
         {
           name: 'description',
