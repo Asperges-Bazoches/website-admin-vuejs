@@ -81,7 +81,7 @@
       Outils du tableau de commandes
     </h2>
     <v-row>
-        <v-col cols="6">
+        <v-col cols="5">
           <v-text-field
             :value="itemsPerPage"
             label="Nombre de commandes par page"
@@ -91,7 +91,7 @@
             @input="$event ? itemsPerPage = parseInt($event, 10): itemsPerPage = 0"
           ></v-text-field>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           <v-btn
           elevation="2"
           :loading="loading"
@@ -148,6 +148,9 @@
     <br/><br/>
 
     <div v-if="selectedOrder.length">
+      <h2>
+        Commande sélectionnée
+      </h2>
 
       <Order
         :id="selectedOrder[0].ID"
