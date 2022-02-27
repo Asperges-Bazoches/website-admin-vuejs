@@ -1,36 +1,26 @@
 <template>
   <div class="orders-panel">
+    <h3>Vue d'ensemble des commandes à venir</h3>
     <CmdByStatus short/>
+    <br /><br />
+
+    <h3>Interface d'administration des commandes</h3><br />
     <v-row>
-          <v-btn-toggle
-          v-model="template"
-          tile
-          color="deep-purple accent-3"
-          group
-        >
-          <v-btn value="Toutes les commandes">
-            Toutes les commandes
-          </v-btn>
-
-          <v-btn value="Toutes les commandes futures">
-            Futures
-          </v-btn>
-
-          <v-btn value="Commandes du jour">
-            Aujourd'hui
-          </v-btn>
-
-          <v-btn value="Commandes de demain">
-            Demain
-          </v-btn>
-        </v-btn-toggle>
-        <!--<v-select
-          v-model="template"
-          :items="Object.keys(lsTemplate)"
-          :rules="[v => !!v || 'Item is required']"
-          label="Sélection des commandes"
-          required
-        ></v-select>-->
+      <v-btn-toggle
+        v-model="template"
+        tile
+        color="deep-purple accent-3"
+        group
+      >
+        <v-btn value="Toutes les commandes">
+          Toutes</v-btn>
+        <v-btn value="Toutes les commandes futures">
+          Futures</v-btn>
+        <v-btn value="Commandes du jour">
+          Aujourd'hui</v-btn>
+        <v-btn value="Commandes de demain">
+          Demain</v-btn>
+      </v-btn-toggle>
     </v-row>
     <br/>
     <v-data-table
@@ -69,52 +59,47 @@
         </v-chip>
       </template>
     </v-data-table>
-    <div class="text-center pt-2">
-      <v-pagination
+
+  <v-row>
+    <v-col cols="3">
+      <div class="text-right pt-3">
+        <v-btn
+          tile
+          :loading="loading"
+          @click='updateTable()'
+          >
+          <v-icon left>
+            mdi-sync
+          </v-icon>
+          Réactualiser
+        </v-btn>
+      </div>
+    </v-col>
+    <v-col cols="6">
+      <div class="text-center pt-2">
+        <v-pagination
         v-model="page"
         :length="pageCount"
-      ></v-pagination>
-    </div>
-    <br />
-
-    <h2>
-      Outils du tableau de commandes
-    </h2>
-    <v-row>
-        <v-col cols="5">
-          <v-text-field
-            :value="itemsPerPage"
-            label="Nombre de commandes par page"
-            type="number"
-            min="-1"
-            max="15"
-            @input="$event ? itemsPerPage = parseInt($event, 10): itemsPerPage = 0"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="2">
-          <v-btn
-          elevation="2"
-          :loading="loading"
-          large
-          block
-          @click='updateTable()'
-          >Rafraichir</v-btn>
-        </v-col>
-        <v-col cols="3">
-          <v-btn
-          elevation="2"
-          large
-          block
+        ></v-pagination>
+      </div>
+    </v-col>
+    <v-col cols="3">
+      <div class="text-center pt-3">
+        <v-btn
+          tile
           color="primary"
           @click='printTable()'
           >
           <v-icon left>
             mdi-printer
           </v-icon>
-          Imprimer l'ensemble du tableau
+          Imprimer
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </v-col>
+  </v-row>
+
+  <br /><br /><br />
 
     <div v-if="selectedOrder==''">
       <Order
@@ -123,7 +108,7 @@
         name="Aucune sélection"
         email=""
         phone="
-        Utiliser le tableau pour sélectionner une commande en cliquant sur une des lignes. 
+        Utiliser le tableau pour sélectionner une commande en cliquant sur une des lignes.
         Vous retrouverez les informations de la commande dans cet encart."
         aspb="Aucune"
         aspv="Aucune"
@@ -183,7 +168,7 @@ export default {
     loading: true,
     page: 1,
     pageCount: 0,
-    itemsPerPage: 5,
+    itemsPerPage: 10,
     headers : [{text: 'Id.',
                 sortable: true,
                 value: 'ID',

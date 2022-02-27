@@ -29,10 +29,6 @@
         </div>
       </div>
       <br/>
-      <ul>
-        <li><em>Astuce 1 : Vous pouvez zoomer en utilisant la souris et dézommer en cliquant sur le rond <i class="fa fa-minus-circle" style='color:blue'></i> situé en haut à droite du graphique.</em></li>
-        <li><em>Astuce 2 : En passant la souris sur le graphique (ou en cliquant depuis un mobile), vous pouvez avoir un récapitulatif du nombre de commande par produit.</em></li>
-      </ul>
     </div>
     <template v-else><br/><p>Aucune commande disponible. Impossible d'afficher le graphique.</p></template>
   </div>

@@ -55,22 +55,25 @@
     <br/>
 
     <v-card-text>
-      <v-chip class="mr-2">
-        <v-icon left>
-          mdi-calendar-clock
-        </v-icon>
+      <v-chip
+        disabled dark class="mr-2"
+        color="black"
+      >
+        <v-icon left>mdi-calendar-clock</v-icon>
         {{day}}
       </v-chip>
-      <v-chip class="mr-2">
-        <v-icon left>
-          mdi-clock
-        </v-icon>
+      <v-chip
+        disabled dark class="mr-2"
+        color="black"
+      >
+        <v-icon left>mdi-clock</v-icon>
         {{hour}}
       </v-chip>
-      <v-chip class="mr-2">
-        <v-icon left>
-          mdi-map-marker
-        </v-icon>
+      <v-chip
+        disabled dark class="mr-2"
+        color="black"
+      >
+        <v-icon left>mdi-map-marker</v-icon>
         {{place}}
       </v-chip>
     </v-card-text>

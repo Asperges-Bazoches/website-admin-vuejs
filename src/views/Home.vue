@@ -18,12 +18,18 @@
 
     <h2>Suivi des commandes</h2>
 
-    <h3>Les commandes en quelques chiffres...</h3>
+    <h3>Les commandes à venir en quelques chiffres...</h3>
     <CmdByStatus/>
 
 
   <br/>
   <OrdersChart />
+  <div style='margin-left:10%; margin-right:10%;'>
+    <ul>
+      <li class="soon"><v-chip>ASTUCE</v-chip><em> Vous pouvez zoomer en utilisant la souris et dézommer en cliquant sur le rond <i class="fa fa-minus-circle" style='color:blue'></i> situé en haut à droite du graphique.</em></li>
+      <li class="soon"><v-chip>ASTUCE</v-chip><em> En passant la souris sur le graphique (ou en cliquant depuis un mobile), vous pouvez avoir un récapitulatif du nombre de commande par produit.</em></li>
+    </ul>
+  </div>
 
     <br/><br/>
   </div>

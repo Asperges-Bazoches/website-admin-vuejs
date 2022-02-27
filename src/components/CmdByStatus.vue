@@ -1,33 +1,45 @@
 <template>
-  <v-row>
-    <v-col cols=4>
-      <v-alert
-        dense
-        :prominent="!short"
-        text
-        color="green"
-        type="success"
-        >{{accepted}} commande(s) future(s) acceptée(s)</v-alert>
-    </v-col>
-    <v-col cols=4>
-      <v-alert
-        dense
-        :prominent="!short"
-        text
+  <div>
+      <v-chip
+          class="ma-2"
+          color="green"
+          text-color="white"
+        >
+          <v-avatar
+            left
+            class="green darken-4"
+          >
+            {{accepted}}
+          </v-avatar>
+          acceptées(s)
+      </v-chip>
+      <v-chip
+        class="ma-2"
         color="red"
-        type="success"
-      >{{refused}} commande(s) future(s) refusée(s)</v-alert>
-    </v-col>
-    <v-col cols=4>
-      <v-alert
-        dense
-        outlined
-        :prominent="!short"
-        color="red"
-        type="error"
-      >{{pending}} commande(s) future(s) à traiter</v-alert>
-    </v-col>
-</v-row>
+        text-color="white"
+      >
+        <v-avatar
+          left
+          class="red darken-4"
+        >
+          {{refused}}
+        </v-avatar>
+        refusée(s)
+      </v-chip>
+      <v-chip
+        class="ma-2"
+        color="grey"
+        text-color="white"
+      >
+        <v-avatar
+          left
+          class="grey darken-1"
+        >
+          {{pending}}
+        </v-avatar>
+        à traiter
+      </v-chip>
+    </div>
 </template>
 
 <script>
