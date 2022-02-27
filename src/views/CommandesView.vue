@@ -117,32 +117,22 @@
     </v-row>
 
     <div v-if="selectedOrder==''">
-      <h2>
-        Guide d'utilisation
-      </h2>
-      <p>
-        Cliquez sur une ligne du tableau pour gérer la commande. <br/><br/>
-
-        Une interface, comme celle ci-dessous, va alors apparaître en bas du tableau.
-        Vous y retrouverez l'ensemble des détails sur la commande (exemple: coordonnées, commentaire).
-        Utilisez les boutons pour accepter, refuser et envoyer un mail. <br/><br/>
-
-        <Order
-          id=""
-          name="Aucune sélection"
-          email=""
-          phone="Utiliser le tableau pour sélectionner une commande"
-          day="..."
-          hour="..."
-          aspb="?"
-          aspv="?"
-          fraise="?"
-          place="..."
-        />
-
-
-      </p><br/>
-
+      <Order
+        id=""
+        status="AIDE D'UTILISATION"
+        name="Aucune sélection"
+        email=""
+        phone="
+        Utiliser le tableau pour sélectionner une commande en cliquant sur une des lignes. 
+        Vous retrouverez les informations de la commande dans cet encart."
+        aspb="Aucune"
+        aspv="Aucune"
+        fraise="Aucune"
+        day="Jour de commande"
+        hour="Créneau"
+        place="Point de retrait"
+      />
+      <br/>
     </div>
 
     <br/><br/>
