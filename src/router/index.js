@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import CommandesView from '../views/CommandesView.vue'
+import ContactsView from '../views/ContactsView.vue'
 import SettingsView from '../views/SettingsView.vue'
 
 Vue.use(VueRouter)
@@ -31,6 +32,24 @@ const routes = [
     component: CommandesView,
     meta: {
       title: 'Commandes - Champ-Ramard',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'The home page of our example app.'
+        },
+        {
+          property: 'og:description',
+          content: 'The home page of our example app.'
+        }
+      ]
+    }
+  },
+  {
+    path: '/contacts',
+    name: "Carnet d'adresses",
+    component: ContactsView,
+    meta: {
+      title: "Carnet d'adresses - Champ-Ramard",
       metaTags: [
         {
           name: 'description',

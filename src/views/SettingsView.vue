@@ -1,7 +1,7 @@
   <template>
     <div class="settings-panel">
 
-      <h2>Changer la disponiblité des produits sur le site</h2>
+      <h2>Changer la disponiblité et le prix des produits sur le site</h2>
       <br/>
 
       <v-row>

@@ -195,6 +195,7 @@ export default {
     group: null,
     items: [
       { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
+      { title: "Carnet d'adresses", icon: 'mdi-card-account-details', href: '/contacts' },
       { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
       { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
     ],

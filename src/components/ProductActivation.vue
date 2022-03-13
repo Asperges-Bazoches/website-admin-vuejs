@@ -34,6 +34,17 @@
     </v-list-item>
 
     <v-card-actions>
+      <v-text-field
+        outlined
+        v-model="price"
+        type="number"
+        step="0.1"
+        label="Prix du produit"
+        suffix="€"
+        @change="setPrice()"
+      />
+    </v-card-actions>
+    <v-card-actions>
       <v-btn text @click="setAvailability()">{{this.btnMsg}}</v-btn>
     </v-card-actions>
   </v-card>
@@ -51,6 +62,7 @@
       img: String,
     },
     data: () => ({
+      price: null,
       loading:true,
       header: 'CHARGEMENT',
       header_i: '',
@@ -73,9 +85,13 @@
         .then(response => {
           let val = response.data;
           var availability=null;
+          this.price=null;
           for(var k in val) {
             if(val[k]['STR_KEY']===this.prodId){
               availability = val[k]['STR_VALUE'];
+            }
+            if(val[k]['STR_KEY']===(this.prodId+'_price')){
+              this.price = val[k]['STR_VALUE'];
             }
           }
           console.log(availability);
@@ -131,6 +147,24 @@
         .then(() => (this.getAvailability()))
         .catch(() => (console.log("Error while changing availability")));
       },
+
+      setPrice: function() {
+        var bodyFormData = new FormData();
+        bodyFormData.append((this.prodId+'_price'), this.price);
+        const requestOptions = {
+            headers: {
+                       'Access-Control-Allow-Origin': '*',
+                       'Authorization': 'Basic ' + localStorage.getItem('user'),
+                       'Content-Type': 'application/json',
+                     }
+        };
+
+        axios
+        .post('v2/private/settings.php', bodyFormData, requestOptions)
+        .then(() => (this.getAvailability()))
+        .catch(() => (console.log("Error while changing price")));
+      },
+
     },
 
     mounted () {
