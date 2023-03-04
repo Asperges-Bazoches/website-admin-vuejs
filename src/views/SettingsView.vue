@@ -48,9 +48,10 @@
       <h2>Autre paramétrage du site internet</h2>
       <p>
         Cette partie du paramétrage permet de configurer ce que les clients visualiseront en accédant au site internet
-        (exemple: certaines tournures de phrase). Elle permet aussi de changer l'email vers laquelle les mails de notification sont
-        envoyés à chaque commande (ça, cela m'est surtout utile à moi quand je développe sur le site et que je ne veux pas vous
-        harceler de mails).
+        (exemple: certaines tournures de phrase, créneaux de commandes). Elle permet aussi de changer l'email vers laquelle
+        les mails de notification sont envoyés à chaque commande
+        (ça, cela m'est surtout utile à moi quand je développe sur le site et que je ne veux pas vous
+        harceler de mails). N'hésitez pas si vous avez besoin de davantage d'options dans les créneaux de commande.
       </p>
 
       <v-text-field
@@ -86,6 +87,20 @@
         </v-col>
       </v-row>
 
+      <v-row>
+        <v-col cols="12">
+          <v-select
+                    v-model="selSlots"
+                    :items="slots"
+                    :menu-props="{ maxHeight: '400' }"
+                    label="Choix des créneaux de commandes possibles"
+                    multiple
+                    hint="Vous pouvez choisir autant de créneaux que vous voulez"
+                    persistent-hint
+                  ></v-select>
+        </v-col>
+      </v-row>
+
       <br/>
 
       <div style='margin-left:35%;margin-right:35%;'>
@@ -107,7 +122,7 @@
 
       <h2>Gestion des anciennes commandes</h2>
       <p>
-        La loi oblige à ne garder les données personnelles q'un temps limité (RGPD). Aussi pour éviter qu'un hacker ne vole les
+        La loi oblige à ne garder les données personnelles qu'un temps limité (RGPD). Aussi pour éviter qu'un hacker ne vole les
         adresses mails et les numéros de téléphone, je vous mets à disposition deux boutons permettant d'anonymiser les
         commandes des années précédentes, ou de carrément supprimer les commandes enregistrées. Ce second bouton est désactivé
         pour le moment (par mesure de précaution).
@@ -168,6 +183,8 @@
       emailTarget: '',
       allowEmail: true,
       sateSettings: {},
+      slots: ["8h30-11h", "10h-12h30", "14h-17h30"],
+      selSlots: [],
       alertStt: 'info',
       alertMsg: '',
       alertDBStt: 'info',
@@ -194,6 +211,9 @@
         .then(()=>{
           if('website_title' in this.sateSettings){
             this.websiteTitle = this.sateSettings['website_title'];
+          }
+          if('order_slots' in this.sateSettings){
+            this.selSlots = this.sateSettings['order_slots'].split('//;//');
           }
           if('website_subtitle' in this.sateSettings){
             this.websiteSubtitle = this.sateSettings['website_subtitle'];
@@ -224,6 +244,7 @@
           bodyFormData.append('email_target', this.emailTarget);
         }
         bodyFormData.append('allow_email', this.allowEmail);
+        bodyFormData.append('order_slots', this.selSlots.join('//;//'));
 
         const requestOptions = {
             headers: {
