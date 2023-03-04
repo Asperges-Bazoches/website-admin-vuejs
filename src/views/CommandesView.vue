@@ -8,12 +8,17 @@
     <v-row>
       <v-btn-toggle
         v-model="template"
+        mandatory
         tile
         color="deep-purple accent-3"
         group
       >
         <v-btn value="Toutes les commandes">
           Toutes</v-btn>
+        <v-btn value="Saison en cours">
+          Saison en cours</v-btn>
+        <v-btn value="Saison dernière">
+          Saison dernière</v-btn>
         <v-btn value="Toutes les commandes futures">
           Futures</v-btn>
         <v-btn value="Commandes du jour">
@@ -177,9 +182,9 @@ export default {
     CmdByStatus,
   },
   data: () => ({
-    template : "Toutes les commandes",
+    template : "Saison en cours",
     selectedOrder : '',
-    slug : "all",
+    slug : "thisseason",
     loading: true,
     page: 1,
     pageCount: 0,
@@ -226,6 +231,8 @@ export default {
               }],
     orders : [],
     lsTemplate : {
+      "Saison en cours" : "thisseason",
+      "Saison dernière" : "lastseason",
       "Toutes les commandes" : "all",
       "Toutes les commandes futures" : "default",
       "Commandes du jour" : "today",
