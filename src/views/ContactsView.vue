@@ -1,6 +1,7 @@
 <template>
   <div class="orders-panel">
-    <h3>Liste de clients (d'après les commandes de cette saison)</h3><br />
+    <h3>Liste de clients (d'après les commandes en ligne de cette saison)</h3>
+    <br />
     <v-data-table
       v-model="contacts"
 
@@ -47,6 +48,7 @@
       </v-col>
       <v-col cols="3"></v-col>
     </v-row>
+    <br/><br/><br/><br/>
   </div>
 </template>
 
