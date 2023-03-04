@@ -79,7 +79,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-item
+          <!--<v-list-item
             key="go_to_timetable"
             href="https://champ-ramard.fr/timetable.html"
             target="_blank"
@@ -91,7 +91,7 @@
             <v-list-item-content>
               <v-list-item-title>Vers le planning</v-list-item-title>
             </v-list-item-content>
-          </v-list-item>
+          </v-list-item>-->
 
           <v-list-item
             key="go_to_website"
@@ -197,7 +197,7 @@ export default {
       { title: 'Accueil', icon: 'mdi-view-dashboard', href: '/' },
       { title: "Carnet d'adresses", icon: 'mdi-card-account-details', href: '/contacts' },
       { title: 'Voir les commandes', icon: 'mdi-cart', href: '/orders' },
-      { title: 'Réglages', icon: 'mdi-cogs', href: '/settings' },
+      { title: 'Paramétrer le site', icon: 'mdi-cogs', href: '/settings' },
     ],
     right: null,
   }),
