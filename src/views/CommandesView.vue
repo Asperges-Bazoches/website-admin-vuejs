@@ -61,7 +61,7 @@
     </v-data-table>
 
   <v-row>
-    <v-col cols="3">
+    <v-col cols="4">
       <div class="text-right pt-3">
         <v-btn
           tile
@@ -75,7 +75,7 @@
         </v-btn>
       </div>
     </v-col>
-    <v-col cols="6">
+    <v-col cols="4">
       <div class="text-center pt-2">
         <v-pagination
         v-model="page"
@@ -83,7 +83,21 @@
         ></v-pagination>
       </div>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="2">
+      <div class="text-center pt-3">
+        <v-btn
+          tile
+          color="primary"
+          @click='saveTable()'
+          >
+          <v-icon left>
+            mdi-printer
+          </v-icon>
+          Enregistrer
+        </v-btn>
+      </div>
+    </v-col>
+    <v-col cols="2">
       <div class="text-center pt-3">
         <v-btn
           tile
@@ -151,6 +165,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+import Papa from "papaparse";
 import Order from '@/components/Order.vue';
 import CmdByStatus from '@/components/CmdByStatus.vue';
 import { isAccepted } from '@/_services/parsers.js';
@@ -238,6 +253,20 @@ export default {
           this.orders = [];
           this.loading = false;
         });
+    },
+
+    saveTable(){
+      var blob = new Blob([Papa.unparse(this.orders, {
+        delimiter: ";"
+      })], { type: 'text/csv;charset=utf-8;' });
+      var link = document.createElement("a");
+      var url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", 'Export_Commandes.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
 
     printTable(){

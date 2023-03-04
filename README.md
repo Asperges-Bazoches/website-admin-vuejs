@@ -3,6 +3,10 @@
 ## Project setup
 ```
 npm install
+
+# install dependencies
+npm install --save axios
+npm install --save papaparse
 ```
 
 ### Compiles and hot-reloads for development
