@@ -1,8 +1,7 @@
 <template>
   <div>
     <div v-if="display">
-      <h3>Volume commandé sur le site par produit et par jour</h3>
-
+      
       <v-slide-group multiple show-arrows>
         <v-btn-toggle
           v-model="subset"

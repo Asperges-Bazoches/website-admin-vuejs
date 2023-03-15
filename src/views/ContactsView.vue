@@ -18,6 +18,7 @@
       class="elevation-1"
 
       item-key="NAME"
+      mobile-breakpoint="200"
 
       hide-default-footer
       :page.sync="page"
