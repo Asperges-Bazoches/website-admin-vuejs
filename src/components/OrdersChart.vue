@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="display">
-      
+
       <v-slide-group multiple show-arrows>
         <v-btn-toggle
           v-model="subset"

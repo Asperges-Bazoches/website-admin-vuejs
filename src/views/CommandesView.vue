@@ -130,7 +130,7 @@
 
 
     <div v-if="selectedOrder==''">
-      <Order
+      <OrderCard
         id=""
         status="AIDE D'UTILISATION"
         name="Aucune sélection"
@@ -155,7 +155,7 @@
         Commande sélectionnée
       </h2>
 
-      <Order
+      <OrderCard
         :id="selectedOrder[0].ID"
         :name="selectedOrder[0].NAME"
         :email="selectedOrder[0].EMAIL"
@@ -180,14 +180,14 @@
 // @ is an alias to /src
 import axios from 'axios';
 import Papa from "papaparse";
-import Order from '@/components/Order.vue';
+import OrderCard from '@/components/OrderCard.vue';
 import CmdByStatus from '@/components/CmdByStatus.vue';
 import { isAccepted } from '@/_services/parsers.js';
 
 export default {
   name: 'CommandesView',
   components: {
-    Order,
+    OrderCard,
     CmdByStatus,
   },
   data: () => ({
