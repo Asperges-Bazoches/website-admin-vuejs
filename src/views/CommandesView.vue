@@ -4,8 +4,14 @@
     <CmdByStatus short/>
     <br /><br />
 
-    <h3>Interface d'administration des commandes</h3><br />
-    <v-row>
+    <h3>Interface d'administration des commandes</h3>
+    <p>
+      Ce tableau permet de sélectionner une commande pour ensuite l'administrer.
+      Il est possible de visualiser les commandes de la saison dernière, ou bien
+      de se concentrer sur les commandes de cette année, d'aujourd'hui, de demain.
+    </p><br />
+
+    <v-slide-group multiple show-arrows>
       <v-btn-toggle
         v-model="template"
         mandatory
@@ -26,7 +32,8 @@
         <v-btn value="Commandes de demain">
           Demain</v-btn>
       </v-btn-toggle>
-    </v-row>
+    </v-slide-group>
+
     <br/>
     <v-data-table
       v-model="selectedOrder"
@@ -66,21 +73,7 @@
     </v-data-table>
 
   <v-row>
-    <v-col cols="4">
-      <div class="text-right pt-3">
-        <v-btn
-          tile
-          :loading="loading"
-          @click='updateTable()'
-          >
-          <v-icon left>
-            mdi-sync
-          </v-icon>
-          Réactualiser
-        </v-btn>
-      </div>
-    </v-col>
-    <v-col cols="4">
+    <v-col cols="12">
       <div class="text-center pt-2">
         <v-pagination
         v-model="page"
@@ -88,30 +81,42 @@
         ></v-pagination>
       </div>
     </v-col>
-    <v-col cols="2">
+  </v-row>
+
+  <v-row>
+    <v-col cols="4">
+      <div class="text-right pt-3">
+        <v-btn
+          class="mx-2"
+          small
+          :loading="loading"
+          @click='updateTable()'
+          >
+          <v-icon>mdi-sync</v-icon>
+          Actualiser
+        </v-btn>
+      </div>
+    </v-col>
+    <v-col cols="4">
       <div class="text-center pt-3">
         <v-btn
-          tile
+          small
           color="primary"
           @click='saveTable()'
           >
-          <v-icon left>
-            mdi-printer
-          </v-icon>
+          <v-icon>mdi-download</v-icon>
           Enregistrer
         </v-btn>
       </div>
     </v-col>
-    <v-col cols="2">
+    <v-col cols="4">
       <div class="text-center pt-3">
         <v-btn
-          tile
+          small
           color="primary"
           @click='printTable()'
           >
-          <v-icon left>
-            mdi-printer
-          </v-icon>
+          <v-icon>mdi-printer</v-icon>
           Imprimer
         </v-btn>
       </div>

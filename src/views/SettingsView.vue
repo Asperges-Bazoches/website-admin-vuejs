@@ -19,22 +19,22 @@
       </p>
       <br/>
 
-      <v-row>
-        <v-col cols=4>
+      <v-row class="pa-3">
+        <v-col cols=4 xs="12" sm="12" md="4">
           <ProductActivation
             prodId="aspb"
             name="Asperges blanches"
             img='img/logo.svg'
             />
         </v-col>
-        <v-col cols=4>
+        <v-col cols=4 xs="12" sm="12" md="4">
           <ProductActivation
             prodId="aspv"
             name="Asperges vertes"
             img='img/logo.svg'
           />
         </v-col>
-        <v-col cols=4>
+        <v-col cols=4 xs="12" sm="12" md="4">
           <ProductActivation
             prodId="fraise"
             name="Fraises"
@@ -69,7 +69,7 @@
       ></v-text-field>
 
       <v-row>
-        <v-col cols="4">
+        <v-col cols="4" xs="12" sm="12" md="4">
           <v-checkbox
             :loading="this.loading"
             v-model="allowEmail"
@@ -77,7 +77,7 @@
             label="Activer les mails de notification"
           ></v-checkbox>
         </v-col>
-        <v-col cols="8">
+        <v-col cols="8" xs="12" sm="12" md="8">
           <v-text-field
             :loading="this.loading"
             v-model="emailTarget"
@@ -90,14 +90,14 @@
       <v-row>
         <v-col cols="12">
           <v-select
-                    v-model="selSlots"
-                    :items="slots"
-                    :menu-props="{ maxHeight: '400' }"
-                    label="Choix des créneaux de commandes possibles"
-                    multiple
-                    hint="Vous pouvez choisir autant de créneaux que vous voulez"
-                    persistent-hint
-                  ></v-select>
+            v-model="selSlots"
+            :items="slots"
+            :menu-props="{ maxHeight: '400' }"
+            label="Choix des créneaux de commandes possibles"
+            multiple
+            hint="Vous pouvez choisir autant de créneaux que vous voulez"
+            persistent-hint
+          ></v-select>
         </v-col>
       </v-row>
 
@@ -133,7 +133,7 @@
         d'une année sur l'autre (parole de statisticien !).
       </p>
       <v-row>
-        <v-col cols="6">
+        <v-col cols="6" xs="12" sm="12" md="6">
           <v-btn
             large
             block
@@ -142,7 +142,7 @@
             Anonymiser les anciennes commandes
           </v-btn>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="6" xs="12" sm="12" md="6">
           <v-btn
             large
             block

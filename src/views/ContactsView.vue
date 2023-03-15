@@ -2,6 +2,12 @@
   <div class="orders-panel">
     <h3>Liste de clients (d'après les commandes en ligne de cette saison)</h3>
     <br />
+    <div class="text-right pt-3" style='margin-bottom: 10px;'>
+      <v-btn
+        tile :loading="loading" @click='updateTable()'>
+        <v-icon left> mdi-sync </v-icon>
+        Réactualiser </v-btn>
+    </div>
     <v-data-table
       v-model="contacts"
 
@@ -24,21 +30,7 @@
     </v-data-table>
 
     <v-row>
-      <v-col cols="3">
-        <div class="text-right pt-3">
-          <v-btn
-            tile
-            :loading="loading"
-            @click='updateTable()'
-            >
-            <v-icon left>
-              mdi-sync
-            </v-icon>
-            Réactualiser
-          </v-btn>
-        </div>
-      </v-col>
-      <v-col cols="6">
+      <v-col cols="12">
         <div class="text-center pt-2">
           <v-pagination
           v-model="page"
@@ -46,9 +38,10 @@
           ></v-pagination>
         </div>
       </v-col>
-      <v-col cols="3"></v-col>
     </v-row>
+
     <br/><br/><br/><br/>
+
   </div>
 </template>
 
