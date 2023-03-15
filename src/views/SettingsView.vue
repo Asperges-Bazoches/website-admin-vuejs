@@ -90,14 +90,14 @@
       <v-row>
         <v-col cols="12">
           <v-select
-                    v-model="selSlots"
-                    :items="slots"
-                    :menu-props="{ maxHeight: '400' }"
-                    label="Choix des créneaux de commandes possibles"
-                    multiple
-                    hint="Vous pouvez choisir autant de créneaux que vous voulez"
-                    persistent-hint
-                  ></v-select>
+            v-model="selSlots"
+            :items="slots"
+            :menu-props="{ maxHeight: '400' }"
+            label="Choix des créneaux de commandes possibles"
+            multiple
+            hint="Vous pouvez choisir autant de créneaux que vous voulez"
+            persistent-hint
+          ></v-select>
         </v-col>
       </v-row>
 
