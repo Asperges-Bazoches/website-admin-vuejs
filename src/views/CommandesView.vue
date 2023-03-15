@@ -4,7 +4,12 @@
     <CmdByStatus short/>
     <br /><br />
 
-    <h3>Interface d'administration des commandes</h3><br />
+    <h3>Interface d'administration des commandes</h3>
+    <p>
+      Ce tableau permet de sélectionner une commande pour ensuite l'administrer.
+      Il est possible de visualiser les commandes de la saison dernière, ou bien
+      de se concentrer sur les commandes de cette année, d'aujourd'hui, de demain.
+    </p><br />
 
     <v-slide-group multiple show-arrows>
       <v-btn-toggle
