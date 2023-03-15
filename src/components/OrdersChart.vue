@@ -3,23 +3,25 @@
     <div v-if="display">
       <h3>Volume commandé sur le site par produit et par jour</h3>
 
-      <v-btn-toggle
-        v-model="subset"
-        tile
-        color="deep-purple accent-3"
-        group
-        @change="updateChartData()"
-      >
-        <v-btn value="all">
-          Toutes les commandes
-        </v-btn>
-        <v-btn value="accepted">
-          Commandes acceptées
-        </v-btn>
-        <v-btn value="not_refused">
-          Commandes non refusées
-        </v-btn>
-      </v-btn-toggle>
+      <v-slide-group multiple show-arrows>
+        <v-btn-toggle
+          v-model="subset"
+          tile
+          color="deep-purple accent-3"
+          group
+          @change="updateChartData()"
+        >
+          <v-btn value="all">
+            Toutes les commandes
+          </v-btn>
+          <v-btn value="accepted">
+            Commandes acceptées
+          </v-btn>
+          <v-btn value="not_refused">
+            Commandes non refusées
+          </v-btn>
+        </v-btn-toggle>
+      </v-slide-group>
 
       <div class="content" style="display:block">
         <div
