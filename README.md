@@ -2,6 +2,7 @@
 
 ## Project setup
 ```
+sudo apt install nodejs npm
 npm install
 
 # install dependencies
