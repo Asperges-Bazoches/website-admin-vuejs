@@ -7,8 +7,7 @@
     dark
     >
 
-    <!--<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-    <h3>Menu</h3>-->
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-spacer></v-spacer>
 
@@ -29,8 +28,7 @@
       v-model="drawer"
       app
       bottom
-      permanent
-      expand-on-hover
+      :expand-on-hover="$vuetify.breakpoint.mdAndUp"
     >
 
         <v-list dense >

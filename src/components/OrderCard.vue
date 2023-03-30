@@ -84,7 +84,9 @@
     </v-card-text>
 
     <v-card-actions>
+      <v-slide-group multiple show-arrows>
         <v-btn
+          class="mx-2"
           color="green"
           v-if='status=="EN ATTENTE"'
           v-on:click="accept"
@@ -92,6 +94,7 @@
           Accepter
         </v-btn>
         <v-btn
+          class="mx-2"
           color="red"
           v-if='status=="EN ATTENTE"'
           v-on:click="refuse"
@@ -99,6 +102,7 @@
           Refuser
         </v-btn>
         <v-btn
+          class="mx-2"
           v-if='email.length>0'
           :href="'mailto:'+email"
           outlined>
@@ -106,13 +110,16 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
+          class="mx-2"
           v-if="comments && comments.length>0"
           @click="show = !show"
         >
           Commentaire
           <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
         </v-btn>
-      </v-card-actions>
+      </v-slide-group>
+    </v-card-actions>
+
       <v-expand-transition>
       <div v-show="show"
         v-if="comments && comments.length>0"
@@ -185,7 +192,7 @@
   import axios from 'axios';
 
   export default {
-    name: 'Order',
+    name: 'OrderCard',
     props: {
       id: String,
       name: String,

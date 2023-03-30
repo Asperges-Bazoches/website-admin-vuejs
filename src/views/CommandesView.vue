@@ -7,7 +7,7 @@
     <h3>Interface d'administration des commandes</h3>
     <p>
       Ce tableau permet de sélectionner une commande pour ensuite l'administrer.
-      Il est possible de visualiser les commandes de la saison dernière, ou bien
+      Il est possible de filtrer sur les commandes de la saison dernière, ou bien
       de se concentrer sur les commandes de cette année, d'aujourd'hui, de demain.
     </p><br />
 
@@ -41,8 +41,12 @@
       :loading="loading"
       loading-text="Chargement..."
       :headers="headers"
+      :header-props="headerProps"
       :items="orders"
       class="elevation-1"
+
+      locale="fr-FR"
+      mobile-breakpoint="200"
 
       item-key="ID"
       single-select
@@ -53,6 +57,9 @@
       :items-per-page="itemsPerPage"
       @page-count="pageCount = $event"
     >
+    headerProps: {
+
+      }
       <template slot="no-data">
           Aucune commande disponible
       </template>
@@ -82,51 +89,48 @@
       </div>
     </v-col>
   </v-row>
+  <br />
 
-  <v-row>
-    <v-col cols="4">
-      <div class="text-right pt-3">
-        <v-btn
-          class="mx-2"
-          small
-          :loading="loading"
-          @click='updateTable()'
-          >
-          <v-icon>mdi-sync</v-icon>
-          Actualiser
-        </v-btn>
-      </div>
-    </v-col>
-    <v-col cols="4">
-      <div class="text-center pt-3">
-        <v-btn
-          small
-          color="primary"
-          @click='saveTable()'
-          >
-          <v-icon>mdi-download</v-icon>
-          Enregistrer
-        </v-btn>
-      </div>
-    </v-col>
-    <v-col cols="4">
-      <div class="text-center pt-3">
-        <v-btn
-          small
-          color="primary"
-          @click='printTable()'
-          >
-          <v-icon>mdi-printer</v-icon>
-          Imprimer
-        </v-btn>
-      </div>
-    </v-col>
-  </v-row>
+  <v-slide-group multiple show-arrows>
+    <v-btn
+      class="mx-2"
+      depressed
+      rounded
+      :loading="loading"
+      @click='updateTable()'>
+      <v-icon>mdi-sync</v-icon>
+      Actualiser
+    </v-btn>
+    <v-btn
+      class="mx-2"
+      color="primary"
+      depressed
+      rounded
+      @click='saveTable()'>
+      <v-icon>mdi-download</v-icon>
+      Enregistrer
+    </v-btn>
+    <v-btn
+      class="mx-2"
+      color="primary"
+      depressed
+      rounded
+      @click='printTable()'>
+      <v-icon>mdi-printer</v-icon>
+      Imprimer
+    </v-btn>
+  </v-slide-group>
 
-  <br /><br /><br />
+  <br /><br />
+  <p>
+    Une fois une commande sélectionnée, l'interface ci-dessous permet  de visualiser l'ensemble des détails de la
+    commande (date, heure, portions de chaque produit, ...) et donner la possibilité d'accepter, de refuser une commande
+    ou de contacter par mail la personne.
+  </p><br />
+
 
     <div v-if="selectedOrder==''">
-      <Order
+      <OrderCard
         id=""
         status="AIDE D'UTILISATION"
         name="Aucune sélection"
@@ -151,7 +155,7 @@
         Commande sélectionnée
       </h2>
 
-      <Order
+      <OrderCard
         :id="selectedOrder[0].ID"
         :name="selectedOrder[0].NAME"
         :email="selectedOrder[0].EMAIL"
@@ -176,14 +180,14 @@
 // @ is an alias to /src
 import axios from 'axios';
 import Papa from "papaparse";
-import Order from '@/components/Order.vue';
+import OrderCard from '@/components/OrderCard.vue';
 import CmdByStatus from '@/components/CmdByStatus.vue';
 import { isAccepted } from '@/_services/parsers.js';
 
 export default {
   name: 'CommandesView',
   components: {
-    Order,
+    OrderCard,
     CmdByStatus,
   },
   data: () => ({
@@ -194,6 +198,9 @@ export default {
     page: 1,
     pageCount: 0,
     itemsPerPage: 10,
+    headerProps: {
+        sortByText: "Trier les commandes par"
+    },
     headers : [{text: 'Id.',
                 sortable: true,
                 value: 'ID',
