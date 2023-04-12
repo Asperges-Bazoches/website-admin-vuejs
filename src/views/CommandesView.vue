@@ -263,7 +263,7 @@ export default {
       };
 
       axios
-        .get('/v2/private/orders.php?template='+this.slug, requestOptions)
+        .get('https://api.champ-ramard.fr/v2/private/orders.php?template='+this.slug, requestOptions)
         .then((response) => {
           this.orders = response.data.data;
           this.loading = false;
@@ -297,7 +297,7 @@ export default {
       };
 
       axios
-        .get('/v2/private/print.php?template='+this.slug, requestOptions)
+        .get('https://api.champ-ramard.fr/v2/private/print.php?template='+this.slug, requestOptions)
         .then((response) => {
           var wnd = window.open("about:blank", "", "_blank");
           wnd.document.write(response.data);

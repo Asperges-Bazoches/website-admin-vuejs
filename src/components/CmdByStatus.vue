@@ -69,7 +69,7 @@
         this.loading = true;
         const user = localStorage.getItem('user');
         axios
-        .get('/v2/private/stats/futures.php',
+        .get('https://api.champ-ramard.fr/v2/private/stats/futures.php',
           {headers: {
             'Access-Control-Allow-Origin': "*",
             'Authorization': 'Basic ' + user,

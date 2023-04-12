@@ -261,7 +261,7 @@
         };
 
         axios
-        .post('v2/private/action.php', bodyFormData, requestOptions)
+        .post('https://api.champ-ramard.fr/v2/private/action.php', bodyFormData, requestOptions)
         .then((response) => {
           if (response.data['res'] == "ok"){
             this.response = "C'est noté ! Statut changé, mail envoyé au client.";

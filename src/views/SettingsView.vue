@@ -201,7 +201,7 @@
         this.loading = true;
         const user = localStorage.getItem('user');
         axios
-        .get('/v2/public/settings.php',
+        .get('https://api.champ-ramard.fr/v2/public/settings.php',
           {headers: {
             'Access-Control-Allow-Origin': "*",
             'Authorization': 'Basic ' + user,
@@ -259,7 +259,7 @@
         };
 
         axios
-        .post('v2/private/settings.php', bodyFormData, requestOptions)
+        .post('https://api.champ-ramard.fr/v2/private/settings.php', bodyFormData, requestOptions)
         .then(() => {
           this.alertStt='success';
           this.alertMsg='Paramétrages modifiés !';
@@ -282,7 +282,7 @@
         };
 
         axios
-        .get('v2/private/anonymize.php', requestOptions)
+        .get('https://api.champ-ramard.fr/v2/private/anonymize.php', requestOptions)
         .then(response => {
           let val = response.data;
           if(val.res=="ok"){
@@ -310,7 +310,7 @@
         };
 
         axios
-        .get('v2/private/reset.php?table=orders', requestOptions)
+        .get('https://api.champ-ramard.fr/v2/private/reset.php?table=orders', requestOptions)
         .then(response => {
           let val = response.data;
           if(val.res=="ok"){
