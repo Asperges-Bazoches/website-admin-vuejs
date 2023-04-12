@@ -76,7 +76,7 @@
         this.loading = true;
         const user = localStorage.getItem('user');
         axios
-        .get('https://api.champ-ramard.fr/v2/public/settings.php',
+        .get('/v2/public/settings.php',
           {headers: {
             'Access-Control-Allow-Origin': "*",
             'Authorization': 'Basic ' + user,
@@ -143,7 +143,7 @@
         };
 
         axios
-        .post('https://api.champ-ramard.fr/v2/private/settings.php', bodyFormData, requestOptions)
+        .post('v2/private/settings.php', bodyFormData, requestOptions)
         .then(() => (this.getAvailability()))
         .catch(() => (console.log("Error while changing availability")));
       },
@@ -160,7 +160,7 @@
         };
 
         axios
-        .post('https://api.champ-ramard.fr/v2/private/settings.php', bodyFormData, requestOptions)
+        .post('v2/private/settings.php', bodyFormData, requestOptions)
         .then(() => (this.getAvailability()))
         .catch(() => (console.log("Error while changing price")));
       },

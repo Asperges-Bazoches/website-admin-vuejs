@@ -86,7 +86,7 @@ export default {
       };
 
       axios
-        .get('https://api.champ-ramard.fr/v2/private/stats/contacts.php', requestOptions)
+        .get('/v2/private/stats/contacts.php', requestOptions)
         .then((response) => {
           this.contactsData = response.data;
           this.loading = false;

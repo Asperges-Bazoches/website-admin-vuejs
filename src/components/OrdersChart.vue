@@ -130,7 +130,7 @@
         const user = localStorage.getItem('user');
         console.log('Updating chart data..');
         axios
-          .get('https://api.champ-ramard.fr/v2/private/stats/by_day.php', {
+          .get('/v2/private/stats/by_day.php', {
             headers: {
             'Access-Control-Allow-Origin': "*",
             'Authorization': 'Basic ' + user,
