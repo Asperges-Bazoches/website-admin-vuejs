@@ -183,7 +183,11 @@
       emailTarget: '',
       allowEmail: true,
       sateSettings: {},
-      slots: ["8h30-11h", "10h-12h", "10h-12h30", "14h-16h", "14h-17h30", "14h-18h", "16h-18h"],
+      slots: [
+        "8h30-11h", "10h-12h", "10h-12h30",
+        "14h-16h", "14h-17h30", "14h-18h",
+        "14h-18h (16h Samedi)", "16h-18h"
+      ],
       selSlots: [],
       alertStt: 'info',
       alertMsg: '',
