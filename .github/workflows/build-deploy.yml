@@ -45,5 +45,5 @@ jobs:
         ftp_username: ${{ secrets.FTP_USERNAME }}
         ftp_password: ${{ secrets.FTP_PASSWORD }}
         local_source_dir: "dist"
-        dist_target_dir: "champramard-admin"
+        dist_target_dir: "champramard-api"
         delete: "false"
