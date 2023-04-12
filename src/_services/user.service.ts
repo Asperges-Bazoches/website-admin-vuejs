@@ -17,7 +17,7 @@ function login(username, password) {
   };
 
   return axios
-    .get('https://api.champ-ramard.fr/v2/private/login.php', requestOptions)
+    .get('/v2/private/login.php', requestOptions)
     .then(() => {
       localStorage.setItem('user', user);
       return true;
