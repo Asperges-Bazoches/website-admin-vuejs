@@ -32,12 +32,32 @@
         </div>
       </v-timeline-item>
       <v-timeline-item
+        color="white"
+        small
+      >
+        <div>
+          <div class="font-weight-normal">
+            <strong>Pointes blanches</strong> - {{ aspbpte }} botte(s)
+          </div>
+        </div>
+      </v-timeline-item>
+      <v-timeline-item
         color="green"
         small
       >
         <div>
           <div class="font-weight-normal">
             <strong>Asperges vertes</strong> - {{ aspv }} botte(s)
+          </div>
+        </div>
+      </v-timeline-item>
+      <v-timeline-item
+        color="green"
+        small
+      >
+        <div>
+          <div class="font-weight-normal">
+            <strong>Pointes vertes</strong> - {{ aspvpte }} botte(s)
           </div>
         </div>
       </v-timeline-item>
@@ -200,6 +220,8 @@
       email: String,
       aspb: Number,
       aspv: Number,
+      aspbpte: Number,
+      aspvpte: Number,
       fraise: Number,
       day: String,
       hour: String,
