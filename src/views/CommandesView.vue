@@ -19,18 +19,18 @@
         color="deep-purple accent-3"
         group
       >
-        <v-btn value="Toutes les commandes">
-          Toutes</v-btn>
         <v-btn value="Saison en cours">
           Saison en cours</v-btn>
-        <v-btn value="Saison dernière">
-          Saison dernière</v-btn>
         <v-btn value="Toutes les commandes futures">
           Futures</v-btn>
         <v-btn value="Commandes du jour">
           Aujourd'hui</v-btn>
         <v-btn value="Commandes de demain">
           Demain</v-btn>
+        <v-btn value="Saison dernière">
+          Saison dernière</v-btn>
+        <v-btn value="Toutes les commandes">
+          Toutes</v-btn>
       </v-btn-toggle>
     </v-slide-group>
 
@@ -140,6 +140,8 @@
         Vous retrouverez les informations de la commande dans cet encart."
         aspb="Aucune"
         aspv="Aucune"
+        aspbpte="Aucune"
+        aspvpte="Aucune"
         fraise="Aucune"
         day="Jour de commande"
         hour="Créneau"
@@ -164,6 +166,8 @@
         :hour="selectedOrder[0].HOUR"
         :aspb="selectedOrder[0].ASPB"
         :aspv="selectedOrder[0].ASPV"
+        :aspbpte="selectedOrder[0]['ASPB-PTE']"
+        :aspvpte="selectedOrder[0]['ASPV-PTE']"
         :fraise="selectedOrder[0].FRAISE"
         :place="selectedOrder[0].PLACE"
         :status="selectedOrder[0].STATUS.toUpperCase()"
@@ -233,6 +237,14 @@ export default {
                 sortable: true,
                 value: 'ASPV',
               }, {
+                text: 'Pointes blanches',
+                sortable: true,
+                value: 'ASPB-PTE',
+              }, {
+                text: 'Pointes vertes',
+                sortable: true,
+                value: 'ASPV-PTE',
+              }, {
                 text: 'Fraises',
                 sortable: true,
                 value: 'FRAISE',
@@ -244,11 +256,11 @@ export default {
     orders : [],
     lsTemplate : {
       "Saison en cours" : "thisseason",
-      "Saison dernière" : "lastseason",
-      "Toutes les commandes" : "all",
       "Toutes les commandes futures" : "default",
       "Commandes du jour" : "today",
       "Commandes de demain" : "tomorrow",
+      "Toutes les commandes" : "all",
+      "Saison dernière" : "lastseason",
     },
   }),
   methods: {

@@ -42,6 +42,22 @@
           />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols=12 xs="12" sm="12" md="4">
+          <ProductActivation
+            prodId="aspb-pte"
+            name="Pointes blanches"
+            img='img/logo.svg'
+            />
+        </v-col>
+        <v-col cols=12 xs="12" sm="12" md="4">
+          <ProductActivation
+            prodId="aspv-pte"
+            name="Pointes vertes"
+            img='img/logo.svg'
+          />
+        </v-col>
+      </v-row>
 
       <br/><br/><br/>
 
